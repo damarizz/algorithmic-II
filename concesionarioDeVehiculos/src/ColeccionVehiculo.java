@@ -8,8 +8,7 @@ public class ColeccionVehiculo {
     public void addVehiculo(Vehiculo vehiculo) {
     }
 
-    public Vehiculo buscarVehiculo (String marca) {
-    }
+
 
     public void deleteVehiculo () {}
 

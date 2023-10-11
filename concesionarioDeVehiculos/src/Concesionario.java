@@ -1,6 +1,9 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Concesionario {
+public class Concesionario extends JFrame {
     private JRadioButton registrarVehículoRadioButton;
     private JRadioButton buscarRegistroRadioButton;
     private JPanel Common;
@@ -26,4 +29,40 @@ public class Concesionario {
     private JRadioButton automóvilRadioButton1;
     private JRadioButton camiónRadioButton1;
     private JTextField textField1;
+
+    public Concesionario() {
+        registrarVehículoRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)Option.getLayout()).show(Option, "RegistrarVehiculo");
+            }
+        });
+        buscarRegistroRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)Option.getLayout()).show(Option, "BuscarRegistro");
+            }
+        });
+        automóvilRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)TipoVehiculo.getLayout()).show(TipoVehiculo, "Automóvil");
+            }
+        });
+        camiónRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)TipoVehiculo.getLayout()).show(TipoVehiculo, "Camión");
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        Concesionario app = new Concesionario();
+        app.setContentPane(app.ConcesionarioForm);
+        app.setTitle("Concesionario de Vehículos");
+        app.setSize(500, 500);
+        app.setVisible(true);
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
 }

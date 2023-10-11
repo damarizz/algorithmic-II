@@ -43,7 +43,7 @@
           <grid id="5e97d" binding="RegistrarVehiculo" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <card name="Card1"/>
+              <card name="RegistrarVehiculo"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -149,7 +149,7 @@
                   <grid id="ec4d1" binding="Automóvil" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <card name="Card1"/>
+                      <card name="Automóvil"/>
                     </constraints>
                     <properties/>
                     <border type="none"/>
@@ -191,7 +191,7 @@
                   <grid id="46d70" binding="Camión" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <card name="Card2"/>
+                      <card name="Camión"/>
                     </constraints>
                     <properties/>
                     <border type="none"/>
@@ -245,7 +245,7 @@
           <grid id="a7bb9" binding="BuscarRegistro" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <card name="Card2"/>
+              <card name="BuscarRegistro"/>
             </constraints>
             <properties/>
             <border type="none"/>
