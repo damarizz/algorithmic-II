@@ -11,9 +11,6 @@ public class ColeccionVehiculo {
     public Vehiculo buscarVehiculo (String marca) {
     }
 
-    public void printRegistrosAutomoviles () {}
-    public void printRegistrosCamiones () {}
-
     public void deleteVehiculo () {}
 
 
