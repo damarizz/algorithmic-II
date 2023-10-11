@@ -184,7 +184,10 @@
                     <constraints>
                       <card name="CuentaCorriente"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <minimumSize width="95" height="10"/>
+                      <preferredSize width="95" height="10"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="75f82" class="javax.swing.JLabel" binding="SobreGiro">
@@ -259,7 +262,7 @@
               </component>
             </children>
           </grid>
-          <grid id="1ec69" binding="Operations" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+          <grid id="1ec69" binding="Operations" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
             <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <card name="Operations"/>
@@ -267,7 +270,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <grid id="b21de" binding="SearchAccount" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="b21de" binding="SearchAccount" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
@@ -283,7 +286,7 @@
                       <text value="Número de cuenta"/>
                     </properties>
                   </component>
-                  <component id="7bfa6" class="javax.swing.JTextField" binding="NroCuentaInput">
+                  <component id="7bfa6" class="javax.swing.JTextField" binding="SearchCuentaInput">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                         <preferred-size width="150" height="-1"/>
@@ -299,6 +302,60 @@
                       <text value="Buscar"/>
                     </properties>
                   </component>
+                  <component id="fab79" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Depositar"/>
+                    </properties>
+                  </component>
+                  <component id="1f2ef" class="javax.swing.JTextField" binding="DepositarInput">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                    </properties>
+                  </component>
+                  <component id="99241" class="javax.swing.JButton" binding="DepositarButton">
+                    <constraints>
+                      <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                      <text value="Depositar"/>
+                    </properties>
+                  </component>
+                  <component id="e1283" class="javax.swing.JLabel">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Retirar"/>
+                    </properties>
+                  </component>
+                  <component id="ca631" class="javax.swing.JTextField" binding="RetirarInput">
+                    <constraints>
+                      <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                    </properties>
+                  </component>
+                  <component id="46b1a" class="javax.swing.JButton" binding="RetirarButton">
+                    <constraints>
+                      <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                      <text value="Retirar"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
               <grid id="514b" binding="OperationsCards" layout-manager="CardLayout" hgap="0" vgap="0">
@@ -308,103 +365,74 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <grid id="72749" binding="CorrienteActions" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="72749" binding="CorrienteActions" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <card name="CorrienteActions"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <minimumSize width="185" height="50"/>
+                      <preferredSize width="185" height="50"/>
+                    </properties>
                     <border type="none"/>
                     <children>
-                      <grid id="2e972" binding="ButtonsCorriente" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
+                      <component id="2690" class="javax.swing.JButton" binding="calcularMantenimientoButton" default-binding="true">
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
-                        <border type="none"/>
-                        <children>
-                          <component id="2690" class="javax.swing.JButton" binding="calcularMantenimientoButton" default-binding="true">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Calcular Mantenimiento"/>
-                            </properties>
-                          </component>
-                          <component id="6375c" class="javax.swing.JButton" binding="calcularInteresButton" default-binding="true">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="      Calcular Interes      "/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
-                      <grid id="fe509" binding="CorrienteActionsPanel" layout-manager="GridLayoutManager" row-count="2" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <properties>
+                          <enabled value="false"/>
+                          <text value="Calcular Mantenimiento"/>
+                        </properties>
+                      </component>
+                      <component id="6375c" class="javax.swing.JButton" binding="calcularInteresButton" default-binding="true">
                         <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                            <preferred-size width="324" height="418"/>
+                          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="1" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <enabled value="false"/>
+                          <text value="      Calcular Interes      "/>
+                        </properties>
+                      </component>
+                      <component id="b49ee" class="javax.swing.JLabel" binding="MantenimientoLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value="Porcentaje mantenimiento:"/>
+                        </properties>
+                      </component>
+                      <component id="cd62b" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value="Porcentaje interes:"/>
+                        </properties>
+                      </component>
+                      <component id="912e6" class="javax.swing.JTextField" binding="ProcentajeMantenimientoInput">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
                           </grid>
                         </constraints>
-                        <properties/>
-                        <border type="none"/>
-                        <children>
-                          <component id="5ddfb" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Retiro"/>
-                            </properties>
-                          </component>
-                          <component id="af419" class="javax.swing.JTextField" binding="DepositoCorrienteInput">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                                <preferred-size width="150" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="fec1d" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Deposito"/>
-                            </properties>
-                          </component>
-                          <component id="2f39b" class="javax.swing.JTextField" binding="RetiroCorrienteInput">
-                            <constraints>
-                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                                <preferred-size width="150" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="6b470" class="javax.swing.JButton" binding="DepositarButtonCorriente">
-                            <constraints>
-                              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Depositar"/>
-                            </properties>
-                          </component>
-                          <component id="6dcc3" class="javax.swing.JButton" binding="RetirarButtonCorriente">
-                            <constraints>
-                              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Retirar"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
+                        <properties>
+                          <enabled value="false"/>
+                        </properties>
+                      </component>
+                      <component id="9425" class="javax.swing.JTextField" binding="PorcentajeInteresInput">
+                        <constraints>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <enabled value="false"/>
+                        </properties>
+                      </component>
                     </children>
                   </grid>
-                  <grid id="b1ed8" binding="PlazoActions" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="b1ed8" binding="PlazoActions" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <card name="PlazoActions"/>
@@ -412,82 +440,40 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <grid id="f1100" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
+                      <component id="618d" class="javax.swing.JButton" binding="calcularInteresPlazoButton">
                         <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
-                        <properties/>
-                        <border type="none"/>
-                        <children>
-                          <component id="e9695" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Depositar"/>
-                            </properties>
-                          </component>
-                          <component id="b737" class="javax.swing.JLabel">
-                            <constraints>
-                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                                <preferred-size width="41" height="193"/>
-                              </grid>
-                            </constraints>
-                            <properties>
-                              <text value="Retirar"/>
-                            </properties>
-                          </component>
-                          <component id="a2a5b" class="javax.swing.JTextField" binding="RetiroPlazoInput">
-                            <constraints>
-                              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                                <preferred-size width="150" height="193"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="9b3d5" class="javax.swing.JTextField" binding="DepositoPlazoInput">
-                            <constraints>
-                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                                <preferred-size width="150" height="-1"/>
-                              </grid>
-                            </constraints>
-                            <properties/>
-                          </component>
-                          <component id="89002" class="javax.swing.JButton" binding="retirarButton" default-binding="true">
-                            <constraints>
-                              <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                                <preferred-size width="78" height="193"/>
-                              </grid>
-                            </constraints>
-                            <properties>
-                              <text value="Retirar"/>
-                            </properties>
-                          </component>
-                          <component id="618d" class="javax.swing.JButton" binding="calcularInteresButton1" default-binding="true">
-                            <constraints>
-                              <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Calcular Interes"/>
-                            </properties>
-                          </component>
-                          <component id="92d2" class="javax.swing.JButton" binding="depositarButton" default-binding="true">
-                            <constraints>
-                              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-                            </constraints>
-                            <properties>
-                              <text value="Depositar"/>
-                            </properties>
-                          </component>
-                        </children>
-                      </grid>
+                        <properties>
+                          <enabled value="false"/>
+                          <text value="Calcular Interes"/>
+                        </properties>
+                      </component>
+                      <component id="8afcc" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value="Porcentaje interes:"/>
+                        </properties>
+                      </component>
+                      <component id="8d77d" class="javax.swing.JTextField" binding="PorcentajeInteresPlazo">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <enabled value="false"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
                     </children>
                   </grid>
                   <grid id="7e12d" binding="DefaultBlank" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <card name="DefaultBlank"/>
+                      <card name="BlankCard"/>
                     </constraints>
                     <properties/>
                     <border type="none"/>

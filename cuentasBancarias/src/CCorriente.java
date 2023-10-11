@@ -37,7 +37,7 @@ public class CCorriente extends Cuenta {
 
     @Override
     public boolean calcularInteres(float porcentaje) {
-        float interes = this.getSaldo() + porcentaje;
+        float interes = this.getSaldo() * porcentaje;
         this.setSaldo(this.getSaldo() + interes);
         return true;
     }
