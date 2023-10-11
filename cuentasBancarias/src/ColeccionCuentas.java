@@ -1,9 +1,9 @@
-import java.util.List;
+import java.util.*;
 
 public class ColeccionCuentas {
-    private List<Cuenta> cuentas;
-
-    ColeccionCuentas(){}
+    private List<Cuenta> cuentas = new ArrayList<>();
+    ColeccionCuentas(){
+    }
 
     public void addCuenta(Cuenta cuenta) {
         cuentas.add(cuenta);

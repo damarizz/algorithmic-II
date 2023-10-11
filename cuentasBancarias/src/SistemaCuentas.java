@@ -6,6 +6,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
+import java.util.OptionalInt;
 
 public class SistemaCuentas extends JFrame{
     private JPanel SistemaCuentasPane;
@@ -57,9 +59,9 @@ public class SistemaCuentas extends JFrame{
     private JButton OKButtonSaldo;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private ColeccionCuentas cuentas = new ColeccionCuentas();
-    private int nroCuenta;
-    private String nombre;
-    private float saldo;
+    private Integer nroCuenta = null;
+    private String nombre = null;
+    private Float saldo = null;
 
     public SistemaCuentas() {
 
@@ -93,17 +95,6 @@ public class SistemaCuentas extends JFrame{
                 ((CardLayout)AccountsPanel.getLayout()).show(AccountsPanel,"CuentaPlazo");
             }
         });
-        agregarCuentaButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (cuentaCorrienteRadioButton.isSelected()) {
-                    CCorriente cuenta = new CCorriente(nroCuenta, nombre, saldo);
-                    cuentas.addCuenta(cuenta);
-                } else {
-                    CPlazo cuenta =new CPlazo(nroCuenta, nombre, saldo);
-                }
-            }
-        });
         OKButtonNroCuenta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -112,13 +103,16 @@ public class SistemaCuentas extends JFrame{
                 } catch (Exception exception) {
                     JFrame jFrame = new JFrame();
                     JOptionPane.showMessageDialog(jFrame, "Ingrese un valor entero");
+                    return;
                 }
+                AddAccountInput.setEditable(false);
             }
         });
         OKButtonNombreCompleto.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 nombre = NameInput.getText();
+                NameInput.setEditable(false);
             }
         });
         OKButtonSaldo.addActionListener(new ActionListener() {
@@ -131,7 +125,25 @@ public class SistemaCuentas extends JFrame{
                     JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real");
                     return;
                 }
+                SaldoInput.setEditable(false);
                 SobreGiroValue.setText(df.format(saldo * 2));
+            }
+        });
+        agregarCuentaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nroCuenta == null || nombre == null || saldo == null) {
+                    JFrame jFrame = new JFrame();
+                    JOptionPane.showMessageDialog(jFrame, "Debe de completar los campos para poder agregar la cuenta");
+                    return;
+                }
+
+                if (cuentaCorrienteRadioButton.isSelected()) {
+                    CCorriente cuenta = new CCorriente(nroCuenta, nombre, saldo);
+                    cuentas.addCuenta(cuenta);
+                } else {
+                    CPlazo cuenta = new CPlazo(nroCuenta, nombre, saldo);
+                }
             }
         });
     }
