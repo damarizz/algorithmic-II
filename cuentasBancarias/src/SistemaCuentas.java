@@ -124,9 +124,9 @@ public class SistemaCuentas extends JFrame{
         SearchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Cuenta cuenta;
                 try {
-                    Cuenta cuenta = cuentas.buscarCuenta(Long.parseLong(SearchCuentaInput.getText()));
+                    cuenta = cuentas.buscarCuenta(Long.parseLong(SearchCuentaInput.getText()));
                 } catch (Exception exception) {
                     ((CardLayout) OperationsCards.getLayout()).show(OperationsCards, "BlankCard");
 
@@ -144,7 +144,7 @@ public class SistemaCuentas extends JFrame{
                     return;
                 }
 
-                if (cuentas.buscarCuenta(Long.parseLong(SearchCuentaInput.getText())) != null) {
+                if (cuenta != null) {
                     DepositarInput.setEnabled(true);
                     DepositarButton.setEnabled(true);
                     RetirarInput.setEnabled(true);
@@ -185,109 +185,102 @@ public class SistemaCuentas extends JFrame{
                 }
             }
         });
-        DepositarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                float monto;
-                try {
-                    monto = Float.parseFloat(DepositarInput.getText());
-                } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real por favor");
-                    return;
-                }
-
-                if (cuentaPlazo == null) {
-                    cuentaCorriente.depositar(monto);
-                } else {
-                    cuentaPlazo.depositar(monto);
-                }
-                JOptionPane.showMessageDialog(jFrame, "Deposito exitoso");
+        DepositarButton.addActionListener(e -> {
+            float monto;
+            try {
+                monto = Float.parseFloat(DepositarInput.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real por favor");
+                return;
             }
+
+            if (cuentaPlazo == null) {
+                cuentaCorriente.depositar(monto);
+            } else {
+                cuentaPlazo.depositar(monto);
+            }
+            JOptionPane.showMessageDialog(jFrame, "Deposito exitoso");
         });
-        RetirarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        RetirarButton.addActionListener(e -> {
 
-                float monto;
-                try {
-                    monto = Float.parseFloat(RetirarInput.getText());
-                } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real por favor");
+            float monto;
+            try {
+                monto = Float.parseFloat(RetirarInput.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real por favor");
+                return;
+            }
+
+            if (cuentaPlazo == null) {
+                if (monto > cuentaCorriente.getSaldo() + cuentaCorriente.getSobregiro()) {
+                    JOptionPane.showMessageDialog(jFrame, "Sobregiro excedido");
                     return;
                 }
-
-                if (cuentaPlazo == null) {
-                    cuentaCorriente.retirar(monto);
-                } else {
-                    cuentaPlazo.retirar(monto);
+                cuentaCorriente.retirar(monto);
+            } else {
+                if (monto > cuentaPlazo.getSaldo()) {
+                    JOptionPane.showMessageDialog(jFrame, "No cuenta con esa cantidad");
+                    return;
                 }
-
-                JOptionPane.showMessageDialog(jFrame, "Retiro exitoso");
+                cuentaPlazo.retirar(monto);
             }
+
+            JOptionPane.showMessageDialog(jFrame, "Retiro exitoso");
         });
 
-        calcularMantenimientoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                float monto;
+        calcularMantenimientoButton.addActionListener(e -> {
+            float monto;
 
-                try {
-                    monto = Float.parseFloat(ProcentajeMantenimientoInput.getText());
-                } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
-                    return;
-                }
-
-                if (monto > 1 || monto < 0) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
-                    return;
-                }
-
-                cuentaCorriente.calcularInteres(monto);
-                JOptionPane.showMessageDialog(jFrame, "Interes agregado con exito");
+            try {
+                monto = Float.parseFloat(ProcentajeMantenimientoInput.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                return;
             }
+
+            if (monto > 1 || monto < 0) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                return;
+            }
+
+            cuentaCorriente.calcularInteres(monto);
+            JOptionPane.showMessageDialog(jFrame, "Interes agregado con exito");
         });
-        calcularInteresButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                float monto;
+        calcularInteresButton.addActionListener(e -> {
+            float monto;
 
-                try {
-                    monto = Float.parseFloat(PorcentajeInteresInput.getText());
-                } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
-                    return;
-                }
-
-                if (monto > 1 || monto < 0) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
-                    return;
-                }
-
-                cuentaCorriente.calcularMantenimiento(monto);
-                JOptionPane.showMessageDialog(jFrame, "Mantenimiento agregado con exito");
+            try {
+                monto = Float.parseFloat(PorcentajeInteresInput.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                return;
             }
+
+            if (monto > 1 || monto < 0) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                return;
+            }
+
+            cuentaCorriente.calcularMantenimiento(monto);
+            JOptionPane.showMessageDialog(jFrame, "Mantenimiento agregado con exito");
         });
-        calcularInteresPlazoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                float monto;
+        calcularInteresPlazoButton.addActionListener(e -> {
+            float monto;
 
-                try {
-                    monto = Float.parseFloat(PorcentajeInteresPlazo.getText());
-                } catch (Exception exception) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
-                    return;
-                }
-
-                if (monto > 1 || monto < 0) {
-                    JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
-                    return;
-                }
-
-                cuentaPlazo.calcularInteres(monto);
-                JOptionPane.showMessageDialog(jFrame, "Interes agregado con exito");
+            try {
+                monto = Float.parseFloat(PorcentajeInteresPlazo.getText());
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                return;
             }
+
+            if (monto > 1 || monto < 0) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                return;
+            }
+
+            cuentaPlazo.calcularInteres(monto);
+            JOptionPane.showMessageDialog(jFrame, "Interes agregado con exito");
         });
     }
 
