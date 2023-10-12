@@ -28,7 +28,8 @@ public class Concesionario extends JFrame {
     private JButton BUSCARButton;
     private JRadioButton automóvilRadioButton1;
     private JRadioButton camiónRadioButton1;
-    private JTextField textField1;
+    private JTextField searchMarcaTextField;
+    private JButton mostrarRegistrosButton;
     private ColeccionVehiculo vehiculos = new ColeccionVehiculo();
     private JFrame jFrame = new JFrame();
 
@@ -76,6 +77,7 @@ public class Concesionario extends JFrame {
                     return;
                 }
 
+
                 try {
                     pasajeros = Integer.parseInt(pasajerosTextField.getText());
                 } catch (Exception exception) {
@@ -113,6 +115,13 @@ public class Concesionario extends JFrame {
                     String maletera = maleteraTextField.getText();
                     int capacidadMaletera;
 
+                    Automovil auto = (Automovil) vehiculos.buscarVehiculo(marca);
+
+                    if (auto != null && auto.getType().equals("Automovil")) {
+                        JOptionPane.showMessageDialog(jFrame, "Marca ya registrada para automovil");
+                        return;
+                    }
+
                     if (maletera == null) {
                         JOptionPane.showMessageDialog(jFrame, "Ingrese un tipo de maletera");
                         return;
@@ -139,6 +148,12 @@ public class Concesionario extends JFrame {
                     String tolva = tolvaTextField.getText();
                     double cargaTolva = -1;
 
+                    Camion camion = (Camion) vehiculos.buscarVehiculo(marca);
+
+                    if (camion != null && camion.getType().equals("Camion")) {
+                        JOptionPane.showMessageDialog(jFrame, "Marca ya registrada para camion");
+                        return;
+                    }
                     if (tolva == null || tolva.equals("")) {
                         JOptionPane.showMessageDialog(jFrame, "Debe ingresar una tolva");
                         return;
@@ -164,6 +179,81 @@ public class Concesionario extends JFrame {
                 pasajerosTextField.setText(null);
                 potenciaTextField.setText(null);
                 precioTextField.setText(null);
+            }
+        });
+        BUSCARButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String marca = searchMarcaTextField.getText();
+
+                if (marca.equals("")) {
+                    JOptionPane.showMessageDialog(jFrame, "Ingrese una marca");
+                    return;
+                }
+
+                Vehiculo vehiculo = vehiculos.buscarVehiculo(marca);
+
+                if (automóvilRadioButton1.isSelected()) {
+
+                    if (vehiculo == null || vehiculo.getType().equals("Camion")) {
+                        JOptionPane.showMessageDialog(jFrame, "Marca no encontrada para automovil");
+                        return;
+                    }
+
+                    Automovil automovil = (Automovil) vehiculos.buscarVehiculo(marca);
+
+                    String s = "Tipo: Automovil\n" +
+                                "Marca: " + automovil.getMarca() + "\n" +
+                                "N° de pasajeros: " + automovil.getPasajeros() + "\n" +
+                                "Potencia: " + automovil.getPotencia() + "\n" +
+                                "Precio: $" + automovil.getPrecio() + "\n" +
+                                "Maletera: " + automovil.getMaletera() + "\n" +
+                                "Capacidad de maletera: " + automovil.getCapacidadMaletera() + "L";
+
+                    JOptionPane.showMessageDialog(jFrame, s);
+                } else {
+
+                    if (vehiculo == null || vehiculo.getType().equals("Automovil")) {
+                        JOptionPane.showMessageDialog(jFrame, "Marca no encontrada para camion");
+                        return;
+                    }
+
+                    Camion camion = (Camion) vehiculos.buscarVehiculo(marca);
+
+                    String s = "Tipo: Camion\n" +
+                            "Marca: " + camion.getMarca() + "\n" +
+                            "N° de pasajeros: " + camion.getPasajeros() + "\n" +
+                            "Potencia: " + camion.getPotencia() + "\n" +
+                            "Precio: $" + camion.getPrecio() + "\n" +
+                            "Tolva: " + camion.getTolva() + "\n" +
+                            "Capacidad de la tolva: " + camion.getCargaTolva() + "K";
+
+                    JOptionPane.showMessageDialog(jFrame, s);
+                }
+
+                searchMarcaTextField.setText("");
+            }
+        });
+        mostrarRegistrosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (vehiculos.getSize() == 0) {
+                    JOptionPane.showMessageDialog(jFrame, "No se han agregado vehiculos todavia");
+                    return;
+                }
+
+                String s = null;
+
+                for (int i = 0; i < vehiculos.getSize(); i++) {
+                    s += "Vehiculo N°" + (i+1) + vehiculos.at(i) + "\n";
+
+                    if (vehiculos.at(i).getType().equals("Automovil")) {
+                        s += ((Automovil) vehiculos.at(i)).toString();
+                    } else {
+                        s += ((Camion) vehiculos.at(i)).toString();
+                    }
+                    s += "\n";
+                }
             }
         });
     }

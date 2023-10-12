@@ -28,4 +28,10 @@ public class ColeccionVehiculo {
         }
         return null;
     }
+    public int getSize() {
+        return vehiculos.size();
+    }
+    public Vehiculo at(int i) {
+        return vehiculos.get(i);
+    }
 }

@@ -3,6 +3,7 @@ public class Vehiculo {
     private int pasajeros;
     private float potencia;
     private double precio;
+    private String type;
 
     public Vehiculo(String marca, int pasajeros, float potencia, double precio) {
         this.marca = marca;
@@ -41,5 +42,13 @@ public class Vehiculo {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
