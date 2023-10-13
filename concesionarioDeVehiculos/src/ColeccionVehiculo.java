@@ -20,13 +20,20 @@ public class ColeccionVehiculo {
             }
         }
     }
-    public Vehiculo buscarVehiculo(String marca) {
+    public Vehiculo[] buscarVehiculo(String marca) {
+        Vehiculo finded[] = new Vehiculo[2];
+        int index = 0;
         for (Vehiculo v: vehiculos) {
             if (Objects.equals(v.getMarca(), marca)) {
-                return v;
+                if (v.getType().equals("Automovil")) {
+                    finded[0] = v;
+                } else {
+                    finded[1] = v;
+                }
             }
         }
-        return null;
+
+        return finded;
     }
     public int getSize() {
         return vehiculos.size();

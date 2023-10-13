@@ -77,7 +77,6 @@ public class Concesionario extends JFrame {
                     return;
                 }
 
-
                 try {
                     pasajeros = Integer.parseInt(pasajerosTextField.getText());
                 } catch (Exception exception) {
@@ -112,12 +111,11 @@ public class Concesionario extends JFrame {
                 }
 
                 if (automóvilRadioButton.isSelected()) {
+
                     String maletera = maleteraTextField.getText();
                     int capacidadMaletera;
 
-                    Automovil auto = (Automovil) vehiculos.buscarVehiculo(marca);
-
-                    if (auto != null && auto.getType().equals("Automovil")) {
+                    if (vehiculos.buscarVehiculo(marca)[0] != null && vehiculos.buscarVehiculo(marca)[0].getType().equals("Automovil")) {
                         JOptionPane.showMessageDialog(jFrame, "Marca ya registrada para automóvil.");
                         return;
                     }
@@ -149,9 +147,7 @@ public class Concesionario extends JFrame {
                     String tolva = tolvaTextField.getText();
                     double cargaTolva = -1;
 
-                    Camion camion = (Camion) vehiculos.buscarVehiculo(marca);
-
-                    if (camion != null && camion.getType().equals("Camion")) {
+                    if (vehiculos.buscarVehiculo(marca)[1] != null && vehiculos.buscarVehiculo(marca)[1].getType().equals("Camion")) {
                         JOptionPane.showMessageDialog(jFrame, "Marca ya registrada para camión.");
                         return;
                     }
@@ -193,16 +189,16 @@ public class Concesionario extends JFrame {
                     return;
                 }
 
-                Vehiculo vehiculo = vehiculos.buscarVehiculo(marca);
+                Vehiculo[] vehiculo = vehiculos.buscarVehiculo(marca);
 
                 if (automóvilRadioButton1.isSelected()) {
 
-                    if (vehiculo == null || vehiculo.getType().equals("Camion")) {
+                    if (vehiculo[0] == null) {
                         JOptionPane.showMessageDialog(jFrame, "Marca no encontrada para automóvil.");
                         return;
                     }
 
-                    Automovil automovil = (Automovil) vehiculos.buscarVehiculo(marca);
+                    Automovil automovil = (Automovil) vehiculos.buscarVehiculo(marca)[0];
 
                     String s = "Tipo: Automóvil\n" +
                                 "Marca: " + automovil.getMarca() + "\n" +
@@ -215,12 +211,12 @@ public class Concesionario extends JFrame {
                     JOptionPane.showMessageDialog(jFrame, s);
                 } else {
 
-                    if (vehiculo == null || vehiculo.getType().equals("Automovil")) {
+                    if (vehiculo[1] == null) {
                         JOptionPane.showMessageDialog(jFrame, "Marca no encontrada para camion");
                         return;
                     }
 
-                    Camion camion = (Camion) vehiculos.buscarVehiculo(marca);
+                    Camion camion = (Camion) vehiculos.buscarVehiculo(marca)[1];
 
                     String s = "Tipo: Camión\n" +
                             "Marca: " + camion.getMarca() + "\n" +
