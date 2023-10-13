@@ -242,10 +242,10 @@ public class Concesionario extends JFrame {
                     return;
                 }
 
-                String s = null;
+                String s = "";
 
                 for (int i = 0; i < vehiculos.getSize(); i++) {
-                    s += "Vehiculo N°" + (i+1) + vehiculos.at(i) + "\n";
+                    s += "Vehiculo N°" + (i+1) + "\n";
 
                     if (vehiculos.at(i).getType().equals("Automovil")) {
                         s += ((Automovil) vehiculos.at(i)).toString();
@@ -254,6 +254,9 @@ public class Concesionario extends JFrame {
                     }
                     s += "\n";
                 }
+
+                ScrollPaneJText jscroll = new ScrollPaneJText();
+                jscroll.run( s );
             }
         });
     }
