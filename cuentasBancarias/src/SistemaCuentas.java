@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,7 +27,7 @@ public class SistemaCuentas extends JFrame{
     private JTextField NameInput;
     private JTextField SaldoInput;
     private JLabel OpenDate;
-    private JLabel OpenDateValue;
+    private JTextField OpenDateValue;
     private JLabel SobreGiro;
     private JLabel SobreGiroValue;
     private JLabel FechaDeVecimientoValue;
@@ -50,25 +51,27 @@ public class SistemaCuentas extends JFrame{
     private JTextField RetirarInput;
     private JButton RetirarButton;
     private JLabel MantenimientoLabel;
-    private JTextField ProcentajeMantenimientoInput;
+    private JTextField PorcentajeMantenimientoInput;
     private JTextField PorcentajeInteresInput;
     private JTextField PorcentajeInteresPlazo;
+    private JTextField AperturaTextField;
+    private JButton AperturaOKButton;
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private ColeccionCuentas cuentas = new ColeccionCuentas();
     private Long nroCuenta = null;
     private String nombre = null;
     private Float saldo = null;
+    private Date fechaCreacion = null;
     private CPlazo cuentaPlazo = null;
     private CCorriente cuentaCorriente = null;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private Date FechaDeVencimiento;
+
 
     public SistemaCuentas() {
 
-        Calendar calendar = Calendar.getInstance();
-        this.OpenDateValue.setText(SimpleDateFormat.getDateInstance().format(Date.from(calendar.toInstant())));
-        calendar.setTime(new Date());
-        calendar.add(Calendar.MONTH, 6);
-        this.FechaDeVecimientoValue.setText(SimpleDateFormat.getDateInstance().format(Date.from(calendar.toInstant())));
         JFrame jFrame = new JFrame();
+
         ((CardLayout) OperationsCards.getLayout()).show(OperationsCards, "BlankCard");
 
         agregarCuentaRadioButton.addActionListener(e -> ((CardLayout)CuentasPane.getLayout()).show(CuentasPane,"AddAccount"));
@@ -80,6 +83,7 @@ public class SistemaCuentas extends JFrame{
                 nroCuenta = Long.parseLong(AddAccountInput.getText());
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(jFrame, "Ingrese un valor entero");
+                AddAccountInput.setText("");
                 return;
             }
             AddAccountInput.setEditable(false);
@@ -93,19 +97,43 @@ public class SistemaCuentas extends JFrame{
                 saldo = Float.parseFloat(SaldoInput.getText());
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real");
+                SaldoInput.setText("");
                 return;
             }
             SaldoInput.setEditable(false);
             SobreGiroValue.setText(df.format(saldo * 2));
         });
+
+        AperturaOKButton.addActionListener(e -> {
+            try {
+                fechaCreacion = dateFormat.parse(AperturaTextField.getText());
+            } catch (ParseException ex) {
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un valor de fecha válido: dd/mm/yyyy");
+                AperturaTextField.setText("");
+                return;
+            }
+
+            AperturaTextField.setEditable(false);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaCreacion);
+            calendar.add(Calendar.MONTH, 6);
+
+            // Asignar el valor de FechaDeVencimiento
+            FechaDeVencimiento = calendar.getTime();
+
+            this.FechaDeVecimientoValue.setText(SimpleDateFormat.getDateInstance().format(FechaDeVencimiento));
+        });
+
+
+
         agregarCuentaButton.addActionListener(e -> {
-            if (nroCuenta == null || nombre == null || saldo == null) {
-                JOptionPane.showMessageDialog(jFrame, "Debe de completar los campos para poder agregar la cuenta");
+            if (nroCuenta == null || nombre == null || saldo == null || fechaCreacion == null) {
+                JOptionPane.showMessageDialog(jFrame, "Debe de completar los campos para poder agregar la cuenta.");
                 return;
             }
 
             if (cuentas.buscarCuenta(nroCuenta) != null) {
-                JOptionPane.showMessageDialog(jFrame, "Ya existe una cuenta con ese numero de cuenta");
+                JOptionPane.showMessageDialog(jFrame, "Ya existe una cuenta con ese número de cuenta.");
                 SaldoInput.setEditable(true);
                 NameInput.setEditable(true);
                 AddAccountInput.setEditable(true);
@@ -118,8 +146,19 @@ public class SistemaCuentas extends JFrame{
                 CPlazo cuenta = new CPlazo(nroCuenta, nombre, saldo); cuentas.addCuenta(cuenta);
             }
             SaldoInput.setEditable(true);
+            AperturaTextField.setEditable(true);
             NameInput.setEditable(true);
             AddAccountInput.setEditable(true);
+
+            JOptionPane.showMessageDialog(jFrame, "Registro de cuenta exitoso.");
+
+            SaldoInput.setText("");
+            AperturaTextField.setText("");
+            NameInput.setText("");
+            AddAccountInput.setText("");
+            SobreGiroValue.setText("");
+            FechaDeVecimientoValue.setText("");
+
         });
         SearchButton.addActionListener(new ActionListener() {
             @Override
@@ -130,7 +169,7 @@ public class SistemaCuentas extends JFrame{
                 } catch (Exception exception) {
                     ((CardLayout) OperationsCards.getLayout()).show(OperationsCards, "BlankCard");
 
-                    JOptionPane.showMessageDialog(jFrame, "Numero de cuenta no encontrado");
+                    JOptionPane.showMessageDialog(jFrame, "Número de cuenta no encontrado");
                     DepositarInput.setEnabled(false);
                     DepositarButton.setEnabled(false);
                     RetirarInput.setEnabled(false);
@@ -138,7 +177,7 @@ public class SistemaCuentas extends JFrame{
                     calcularInteresButton.setEnabled(false);
                     calcularMantenimientoButton.setEnabled(false);
                     calcularInteresPlazoButton.setEnabled(false);
-                    ProcentajeMantenimientoInput.setEnabled(false);
+                    PorcentajeMantenimientoInput.setEnabled(false);
                     PorcentajeInteresInput.setEnabled(false);
                     PorcentajeInteresPlazo.setEnabled(false);
                     return;
@@ -152,7 +191,7 @@ public class SistemaCuentas extends JFrame{
                     calcularInteresButton.setEnabled(true);
                     calcularMantenimientoButton.setEnabled(true);
                     calcularInteresPlazoButton.setEnabled(true);
-                    ProcentajeMantenimientoInput.setEnabled(true);
+                    PorcentajeMantenimientoInput.setEnabled(true);
                     PorcentajeInteresInput.setEnabled(true);
                     PorcentajeInteresPlazo.setEnabled(true);
 
@@ -171,7 +210,7 @@ public class SistemaCuentas extends JFrame{
                 } else {
 
                     ((CardLayout) OperationsCards.getLayout()).show(OperationsCards, "BlankCard");
-                    JOptionPane.showMessageDialog(jFrame, "Numero de cuenta no encontrado");
+                    JOptionPane.showMessageDialog(jFrame, "Número de cuenta no encontrado");
                     DepositarInput.setEnabled(false);
                     DepositarButton.setEnabled(false);
                     RetirarInput.setEnabled(false);
@@ -179,7 +218,7 @@ public class SistemaCuentas extends JFrame{
                     calcularInteresButton.setEnabled(false);
                     calcularMantenimientoButton.setEnabled(false);
                     calcularInteresPlazoButton.setEnabled(false);
-                    ProcentajeMantenimientoInput.setEnabled(false);
+                    PorcentajeMantenimientoInput.setEnabled(false);
                     PorcentajeInteresInput.setEnabled(false);
                     PorcentajeInteresPlazo.setEnabled(false);
                 }
@@ -190,7 +229,8 @@ public class SistemaCuentas extends JFrame{
             try {
                 monto = Float.parseFloat(DepositarInput.getText());
             } catch (Exception exception) {
-                JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real por favor");
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real, por favor.");
+                DepositarInput.setText("");
                 return;
             }
 
@@ -199,52 +239,70 @@ public class SistemaCuentas extends JFrame{
             } else {
                 cuentaPlazo.depositar(monto);
             }
-            JOptionPane.showMessageDialog(jFrame, "Deposito exitoso");
+            JOptionPane.showMessageDialog(jFrame, "Depósito exitoso");
+            DepositarInput.setText("");
+
         });
         RetirarButton.addActionListener(e -> {
-
             float monto;
             try {
                 monto = Float.parseFloat(RetirarInput.getText());
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(jFrame, "Ingrese un valor real por favor");
+                RetirarInput.setText("");
                 return;
             }
 
             if (cuentaPlazo == null) {
                 if (monto > cuentaCorriente.getSaldo() + cuentaCorriente.getSobregiro()) {
                     JOptionPane.showMessageDialog(jFrame, "Sobregiro excedido");
+                    RetirarInput.setText("");
                     return;
                 }
                 cuentaCorriente.retirar(monto);
             } else {
-                if (monto > cuentaPlazo.getSaldo()) {
-                    JOptionPane.showMessageDialog(jFrame, "No cuenta con esa cantidad");
+                Date currentDate = new Date(); // Obtener la fecha actual
+                if (currentDate.after(FechaDeVencimiento)) { // Comprobar si la fecha actual es posterior a la fecha de vencimiento
+                    if (monto > cuentaPlazo.getSaldo()) {
+                        JOptionPane.showMessageDialog(jFrame, "No cuenta con esa cantidad");
+                        RetirarInput.setText("");
+                        return;
+                    }
+                    cuentaPlazo.retirar(monto);
+                } else {
+                    JOptionPane.showMessageDialog(jFrame, "No puede retirar (plazo no vencido).");
+                    RetirarInput.setText("");
                     return;
                 }
-                cuentaPlazo.retirar(monto);
             }
 
-            JOptionPane.showMessageDialog(jFrame, "Retiro exitoso");
+            JOptionPane.showMessageDialog(jFrame, "Retiro exitoso.");
+
+            RetirarInput.setText("");
         });
+
 
         calcularMantenimientoButton.addActionListener(e -> {
             float monto;
 
             try {
-                monto = Float.parseFloat(ProcentajeMantenimientoInput.getText());
+                monto = Float.parseFloat(PorcentajeMantenimientoInput.getText());
             } catch (Exception exception) {
-                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un número real entre 0 y 1.");
+                PorcentajeMantenimientoInput.setText("");
                 return;
             }
 
             if (monto > 1 || monto < 0) {
-                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un número real entre 0 y 1.");
+                PorcentajeMantenimientoInput.setText("");
                 return;
             }
 
-            cuentaCorriente.calcularInteres(monto);
-            JOptionPane.showMessageDialog(jFrame, "Interes agregado con exito");
+            cuentaCorriente.calcularMantenimiento(monto);
+            JOptionPane.showMessageDialog(jFrame, "Porcentaje de mantenimiento agregado con éxito.");
+
+            PorcentajeMantenimientoInput.setText("");
         });
         calcularInteresButton.addActionListener(e -> {
             float monto;
@@ -252,17 +310,19 @@ public class SistemaCuentas extends JFrame{
             try {
                 monto = Float.parseFloat(PorcentajeInteresInput.getText());
             } catch (Exception exception) {
-                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un número real entre 0 y 1.");
+                PorcentajeInteresInput.setText("");
                 return;
             }
 
             if (monto > 1 || monto < 0) {
-                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un número real entre 0 y 1.");
+                PorcentajeInteresInput.setText("");
                 return;
             }
 
-            cuentaCorriente.calcularMantenimiento(monto);
-            JOptionPane.showMessageDialog(jFrame, "Mantenimiento agregado con exito");
+            cuentaCorriente.calcularInteres(monto);
+            JOptionPane.showMessageDialog(jFrame, "Porcentaje de interés agregado con éxito.");
         });
         calcularInteresPlazoButton.addActionListener(e -> {
             float monto;
@@ -270,18 +330,23 @@ public class SistemaCuentas extends JFrame{
             try {
                 monto = Float.parseFloat(PorcentajeInteresPlazo.getText());
             } catch (Exception exception) {
-                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un número real entre 0 y 1.");
+                PorcentajeInteresPlazo.setText("");
                 return;
             }
 
             if (monto > 1 || monto < 0) {
-                JOptionPane.showMessageDialog(jFrame, "Ingrese un numero real entre 0 y 1");
+                JOptionPane.showMessageDialog(jFrame, "Ingrese un número real entre 0 y 1.");
+                PorcentajeInteresPlazo.setText("");
                 return;
             }
 
             cuentaPlazo.calcularInteres(monto);
-            JOptionPane.showMessageDialog(jFrame, "Interes agregado con exito");
+            JOptionPane.showMessageDialog(jFrame, "Interés agregado con éxito.");
+
+            PorcentajeInteresPlazo.setText("");
         });
+
     }
 
     public static void main(String[] args) {

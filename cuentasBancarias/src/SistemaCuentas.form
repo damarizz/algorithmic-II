@@ -138,14 +138,6 @@
                       <text value="Fecha de apertura:"/>
                     </properties>
                   </component>
-                  <component id="9b8b7" class="javax.swing.JLabel" binding="OpenDateValue">
-                    <constraints>
-                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value=""/>
-                    </properties>
-                  </component>
                   <component id="eab58" class="javax.swing.JButton" binding="OKButtonNroCuenta">
                     <constraints>
                       <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -165,6 +157,22 @@
                   <component id="1522" class="javax.swing.JButton" binding="OKButtonSaldo">
                     <constraints>
                       <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="OK"/>
+                    </properties>
+                  </component>
+                  <component id="d85f5" class="javax.swing.JTextField" binding="AperturaTextField">
+                    <constraints>
+                      <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                        <preferred-size width="150" height="-1"/>
+                      </grid>
+                    </constraints>
+                    <properties/>
+                  </component>
+                  <component id="222f8" class="javax.swing.JButton" binding="AperturaOKButton">
+                    <constraints>
+                      <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value="OK"/>
@@ -245,7 +253,7 @@
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="Label"/>
+                          <text value=""/>
                         </properties>
                       </component>
                     </children>
@@ -410,7 +418,7 @@
                           <text value="Porcentaje interes:"/>
                         </properties>
                       </component>
-                      <component id="912e6" class="javax.swing.JTextField" binding="ProcentajeMantenimientoInput">
+                      <component id="912e6" class="javax.swing.JTextField" binding="PorcentajeMantenimientoInput">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="-1"/>
@@ -446,7 +454,7 @@
                         </constraints>
                         <properties>
                           <enabled value="false"/>
-                          <text value="Calcular Interes"/>
+                          <text value="Agregar Interés"/>
                         </properties>
                       </component>
                       <component id="8afcc" class="javax.swing.JLabel">
