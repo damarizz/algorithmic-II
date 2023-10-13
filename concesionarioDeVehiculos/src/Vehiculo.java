@@ -1,11 +1,11 @@
 public class Vehiculo {
     private String marca;
     private int pasajeros;
-    private float potencia;
+    private String potencia;
     private double precio;
     private String type;
 
-    public Vehiculo(String marca, int pasajeros, float potencia, double precio) {
+    public Vehiculo(String marca, int pasajeros, String potencia, double precio) {
         this.marca = marca;
         this.pasajeros = pasajeros;
         this.potencia = potencia;
@@ -28,11 +28,11 @@ public class Vehiculo {
         this.pasajeros = pasajeros;
     }
 
-    public float getPotencia() {
+    public String getPotencia() {
         return potencia;
     }
 
-    public void setPotencia(float potencia) {
+    public void setPotencia(String potencia) {
         this.potencia = potencia;
     }
 

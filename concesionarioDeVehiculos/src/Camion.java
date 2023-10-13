@@ -2,7 +2,7 @@ public class Camion extends Vehiculo {
     private String tolva; // la tolva puede ser abierta, cerrada...
     private double cargaTolva; // capacidad de carga de la tolva
 
-    public Camion(String marca, int pasajeros, float potencia, double precio,
+    public Camion(String marca, int pasajeros, String potencia, double precio,
                   String tolva, double cargaTolva) {
         super(marca, pasajeros, potencia, precio);
         this.tolva = tolva;
@@ -29,13 +29,13 @@ public class Camion extends Vehiculo {
     @Override
     public String toString() {
 
-        String s = "Tipo: Camion\n" +
+        String s = "Tipo: " + this.getType() + "\n" +
                 "Marca: " + this.getMarca() + "\n" +
                 "N° de pasajeros: " + this.getPasajeros() + "\n" +
-                "Potencia: " + this.getPotencia() + "\n" +
-                "Precio: $" + this.getPrecio() + "\n" +
+                "Potencia: " + this.getPotencia() + " hp/rpm\n" +
+                "Precio: $ " + this.getPrecio() + "\n" +
                 "Tolva: " + this.getTolva() + "\n" +
-                "Capacidad de la tolva: " + this.getCargaTolva() + "K\n";
+                "Capacidad de la Tolva: " + this.getCargaTolva() + " K\n";
         return s;
     }
 }
