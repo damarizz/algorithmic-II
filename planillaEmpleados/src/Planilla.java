@@ -61,6 +61,19 @@ public class Planilla extends JFrame{
                 ((CardLayout)Acciones.getLayout()).show(Acciones, "MostrarCard");
             }
         });
+        empleadoRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)TipoTrabajador.getLayout()).show(TipoTrabajador, "EmpleadoCard");
+            }
+        });
+        consultorRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)TipoTrabajador.getLayout()).show(TipoTrabajador, "ConsultorCard");
+            }
+        });
+
         CALCULARYAGREGARButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -168,6 +181,11 @@ public class Planilla extends JFrame{
                     index++;
 
                     JOptionPane.showMessageDialog(jFrame, "Empleado agregado con éxito.");
+                    codigoTextField.setText(null);
+                    nombresTextField.setText(null);
+                    basicoTextField.setText(null);
+                    tasaTextField.setText(null);
+                    retencionesTextField.setText(null);
                     HorasExtrasTextField.setText(null);
                     faltasTextField.setText(null);
 
@@ -193,6 +211,11 @@ public class Planilla extends JFrame{
                     index++;
 
                     JOptionPane.showMessageDialog(jFrame, "Consultor agregado con éxito.");
+                    codigoTextField.setText(null);
+                    nombresTextField.setText(null);
+                    basicoTextField.setText(null);
+                    tasaTextField.setText(null);
+                    retencionesTextField.setText(null);
                     bonificacionTextField.setText(null);
                 }
             }
@@ -214,7 +237,7 @@ public class Planilla extends JFrame{
                                 "'\n'Sueldo basico: " + personal[i].getBasico() + "'\n'Retenciones: " + personal[i].getRetenciones() +
                                 '\n';
 
-                        if (personal[i].getClass().getName().equals(Empleado.getClass().getName())) {
+                        if (personal[i] instanceof Empleado) {
                             Empleado empleado = (Empleado) personal[i];
                             s += "Días de falta: " + empleado.getDiasFaltas() + "'\n'Descuentos: " + empleado.getDescuentos() +
                                     "'\n'Horas extra: " + empleado.getHorasExtras() + '\n';
@@ -228,6 +251,7 @@ public class Planilla extends JFrame{
                     }
                 }
                 JOptionPane.showInputDialog(jFrame, "Codigo no encontrado");
+                CódigoEmpleadoTextField.setText(null);
             }
         });
         //todos los workers ->
@@ -250,7 +274,7 @@ public class Planilla extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String s = "";
                 for (int i = 0; i < index; i++) {
-                    if (personal[i].getClass().getName().equals(Consultor.getClass().getName())) {
+                    if (personal[i] instanceof Consultor) {
                         s += ((Consultor) personal[i]).toString() + '\n';
                     }
                 }
@@ -262,13 +286,15 @@ public class Planilla extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String s = "";
                 for (int i = 0; i < index; i++) {
-                    if (personal[i].getClass().getName().equals(Empleado.getClass().getName())) {
+                    if (personal[i] instanceof Empleado) {
                         s += ((Empleado) personal[i]).toString() + '\n';
                     }
                 }
                 JOptionPane.showMessageDialog(jFrame, s);
             }
         });
+
+
     }
 
     public static void main(String[] args) {
