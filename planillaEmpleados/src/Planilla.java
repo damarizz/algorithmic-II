@@ -38,6 +38,7 @@ public class Planilla extends JFrame{
     private JLabel HorasExtrasJLabel;
     private JLabel sueldoNetoLabel;
     private JTextField retencionesTextField;
+    private JLabel consultorSueldoLabel;
 
     Trabajador[] personal = new Trabajador[10];
     int index = 0;
@@ -82,6 +83,18 @@ public class Planilla extends JFrame{
                 double basico;
                 float tasa;
                 double retenciones;
+                if (index == 10) {
+                    JOptionPane.showMessageDialog(jFrame, "Ya se han registrado 10 usuarios");
+                    codigoTextField.setText(null);
+                    nombresTextField.setText(null);
+                    basicoTextField.setText(null);
+                    tasaTextField.setText(null);
+                    retencionesTextField.setText(null);
+                    bonificacionTextField.setText(null);
+                    HorasExtrasTextField.setText(null);
+                    faltasTextField.setText(null);
+                    return;
+                }
 
                 try {
                     codigo = Integer.parseInt(codigoTextField.getText());
@@ -189,7 +202,6 @@ public class Planilla extends JFrame{
                     HorasExtrasTextField.setText(null);
                     faltasTextField.setText(null);
 
-
                 } else {
                     double bonificacion;
 
@@ -217,6 +229,7 @@ public class Planilla extends JFrame{
                     tasaTextField.setText(null);
                     retencionesTextField.setText(null);
                     bonificacionTextField.setText(null);
+                    consultorSueldoLabel.setText(String.valueOf(consultor.getNeto()));
                 }
             }
         });
@@ -260,13 +273,14 @@ public class Planilla extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String s = "";
                 for (int i = 0; i < index; i++) {
-                    if (personal[i].getClass().getName().equals(Empleado.getClass().getName())) {
+                    if (personal[i] instanceof Empleado) {
                         s += ((Empleado) personal[i]).toString() + '\n';
                     } else {
                         s += ((Consultor) personal[i]).toString() + '\n';
                     }
                 }
-                JOptionPane.showMessageDialog(jFrame, s);
+                ScrollPaneJText jScroll = new ScrollPaneJText();
+                jScroll.run( s );
             }
         });
         mostrarConsultoresRegistradosButton.addActionListener(new ActionListener() {
@@ -278,7 +292,8 @@ public class Planilla extends JFrame{
                         s += ((Consultor) personal[i]).toString() + '\n';
                     }
                 }
-                JOptionPane.showMessageDialog(jFrame, s);
+                ScrollPaneJText jScroll = new ScrollPaneJText();
+                jScroll.run( s );
             }
         });
         mostrarEmpleadosRegistradosButton.addActionListener(new ActionListener() {
@@ -290,7 +305,8 @@ public class Planilla extends JFrame{
                         s += ((Empleado) personal[i]).toString() + '\n';
                     }
                 }
-                JOptionPane.showMessageDialog(jFrame, s);
+                ScrollPaneJText jScroll = new ScrollPaneJText();
+                jScroll.run( s );
             }
         });
 
