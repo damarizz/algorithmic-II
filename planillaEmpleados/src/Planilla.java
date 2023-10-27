@@ -19,7 +19,7 @@ public class Planilla extends JFrame{
     private JPanel Consultor;
     private JRadioButton empleadoRadioButton;
     private JRadioButton consultarRadioButton;
-    private JTextField CódigoEmpleadotextField;
+    private JTextField CódigoEmpleadoTextField;
     private JButton buscarButton;
     private JLabel CódigoEmpleadoJLabel;
     private JButton mostrarTrabajadoresRegistradosButton;
@@ -33,6 +33,13 @@ public class Planilla extends JFrame{
     private JTextField bonificacionTextField;
     private JButton CALCULARYAGREGARButton;
     private JLabel retencionesLabel;
+    private JTextField HorasExtrasTextField;
+    private JLabel HorasExtrasJLabel;
+    private JLabel sueldoNetoLabel;
+    private JTextField retencionesTextField;
+
+    Trabajador[] personal = new Trabajador[10];
+    int index = 0;
 
     public Planilla() {
         agregarRadioButton.addActionListener(new ActionListener() {
@@ -60,6 +67,7 @@ public class Planilla extends JFrame{
                 String nombres;
                 double basico;
                 float tasa;
+                double retenciones;
 
                 try {
                     codigo = Integer.parseInt(codigoTextField.getText());
@@ -105,8 +113,20 @@ public class Planilla extends JFrame{
                     JOptionPane.showMessageDialog(jFrame, "Tasa inválida.");
                     return;
                 }
+                try {
+                    retenciones = Double.parseDouble(retencionesTextField.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(jFrame, "Ingrese un valor valido");
+                    return;
+                }
+                if (retenciones < 0) {
+                    JOptionPane.showMessageDialog(jFrame, "Las retenciones no pueden ser menores a 0");
+                    return;
+                }
+
                 if (empleadoRadioButton.isSelected()) {
                     int diasFalta;
+                    int horasExtra;
 
                     try {
                         diasFalta = Integer.parseInt(faltasTextField.getText());
@@ -117,9 +137,28 @@ public class Planilla extends JFrame{
 
                     if (diasFalta < 0) {
                         JOptionPane.showMessageDialog(jFrame,"El numero de faltas no puede ser menor a 0");
+                        return;
                     }
-                    Empleado empleado = new Empleado(codigo, nombres, basico, diasFalta)
-                    retencionesLabel.setText();
+                    try {
+                        horasExtra = Integer.parseInt(HorasExtrasTextField.getText());
+                    } catch (Exception exception) {
+                        JOptionPane.showMessageDialog(jFrame, "Ingrese una cantidad entera valida");
+                        return;
+                    }
+
+                    if (horasExtra < 0) {
+                        JOptionPane.showMessageDialog(jFrame, "Las horas extra no pueden ser menor a 0");
+                        return;
+                    }
+
+                    Empleado empleado = new Empleado(codigo, nombres, basico, diasFalta, horasExtra);
+                    retencionesLabel.setText(String.valueOf(empleado.getRetenciones()));
+                    empleado.calcularNeto();
+                    sueldoNetoLabel.setText(Double.toString(empleado.getNeto()));
+                    empleado.setRetenciones(retenciones);
+                    personal[index] = empleado;
+                    index++;
+
                 } else {
                     double bonificacion;
 
@@ -127,10 +166,38 @@ public class Planilla extends JFrame{
                         bonificacion = Double.parseDouble(bonificacionTextField.getText());
                     } catch (Exception exception) {
                         JOptionPane.showMessageDialog(jFrame, "Ingrese una bonificacion valida");
+                        return;
                     }
+                    if (bonificacion < 0) {
+                        JOptionPane.showMessageDialog(jFrame, "La bonificacion no puede ser menor a 0");
+                        return;
+                    }
+
+                    Consultor consultor = new Consultor(codigo, nombres, basico, bonificacion);
+                    consultor.setRetenciones(retenciones);
+                    consultor.calcularNeto();
+                    personal[index] = consultor;
+                    index++;
+                }
+            }
+        });
+        buscarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int codigo;
+                try {
+                    codigo = Integer.parseInt(CódigoEmpleadoTextField.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(jFrame, "Ingrese un numero valido");
+                    return;
                 }
 
-
+                for (int i = 0; i < index; i++) {
+                    if (personal[i].getCodigo() == codigo) {
+                        if (personal.getClass().equals(Empleado)) {
+                        JOptionPane.showMessageDialog(jFrame, "Codigo: " + personal[i].getCodigo() + "\n");
+                    }
+                }
             }
         });
     }
