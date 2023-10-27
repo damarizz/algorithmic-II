@@ -18,4 +18,12 @@ public class Consultor extends Trabajador {
     public void calcularNeto() {
         setNeto(getBasico()-getRetenciones()+bonificacion);
     }
+
+
+    @Override
+    public String toString() {
+        return "Codigo: " + this.getCodigo() + "'\n'Nombre: " + this.getNombre() +
+                "'\n'Sueldo basico: " + this.getBasico() + "'\n'Retenciones: " + this.getRetenciones() +
+                "'\n'Bonificación: " + this.getBonificacion() + "'\n'Neto: " + this.getNeto() + '\n';
+    }
 }

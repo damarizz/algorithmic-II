@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Objects;
 
 public class Planilla extends JFrame{
     private JFrame jFrame = new JFrame();
@@ -18,7 +19,7 @@ public class Planilla extends JFrame{
     private JPanel Empleado;
     private JPanel Consultor;
     private JRadioButton empleadoRadioButton;
-    private JRadioButton consultarRadioButton;
+    private JRadioButton consultorRadioButton;
     private JTextField CódigoEmpleadoTextField;
     private JButton buscarButton;
     private JLabel CódigoEmpleadoJLabel;
@@ -124,6 +125,13 @@ public class Planilla extends JFrame{
                     return;
                 }
 
+                for (Trabajador trabajador: personal) {
+                    if (trabajador != null && trabajador.getCodigo() == codigo) {
+                        JOptionPane.showMessageDialog(jFrame, "Código ya registrado.");
+                        return;
+                    }
+                }
+
                 if (empleadoRadioButton.isSelected()) {
                     int diasFalta;
                     int horasExtra;
@@ -152,12 +160,17 @@ public class Planilla extends JFrame{
                     }
 
                     Empleado empleado = new Empleado(codigo, nombres, basico, diasFalta, horasExtra);
-                    retencionesLabel.setText(String.valueOf(empleado.getRetenciones()));
+                    //retencionesLabel.setText(String.valueOf(empleado.getRetenciones()));
                     empleado.calcularNeto();
                     sueldoNetoLabel.setText(Double.toString(empleado.getNeto()));
                     empleado.setRetenciones(retenciones);
                     personal[index] = empleado;
                     index++;
+
+                    JOptionPane.showMessageDialog(jFrame, "Empleado agregado con éxito.");
+                    HorasExtrasTextField.setText(null);
+                    faltasTextField.setText(null);
+
 
                 } else {
                     double bonificacion;
@@ -178,6 +191,9 @@ public class Planilla extends JFrame{
                     consultor.calcularNeto();
                     personal[index] = consultor;
                     index++;
+
+                    JOptionPane.showMessageDialog(jFrame, "Consultor agregado con éxito.");
+                    bonificacionTextField.setText(null);
                 }
             }
         });
@@ -194,10 +210,63 @@ public class Planilla extends JFrame{
 
                 for (int i = 0; i < index; i++) {
                     if (personal[i].getCodigo() == codigo) {
-                        if (personal.getClass().equals(Empleado)) {
-                        JOptionPane.showMessageDialog(jFrame, "Codigo: " + personal[i].getCodigo() + "\n");
+                        String s = "Codigo: " + personal[i].getCodigo() + "'\n'Nombre: " + personal[i].getNombre() +
+                                "'\n'Sueldo basico: " + personal[i].getBasico() + "'\n'Retenciones: " + personal[i].getRetenciones() +
+                                '\n';
+
+                        if (personal[i].getClass().getName().equals(Empleado.getClass().getName())) {
+                            Empleado empleado = (Empleado) personal[i];
+                            s += "Días de falta: " + empleado.getDiasFaltas() + "'\n'Descuentos: " + empleado.getDescuentos() +
+                                    "'\n'Horas extra: " + empleado.getHorasExtras() + '\n';
+                        } else {
+                            Consultor consultor = (Consultor) personal[i];
+                            s += "Bonificación: " + consultor.getBonificacion() + '\n';
+                        }
+                        s += "Neto: " + personal[i].getNeto();
+                        JOptionPane.showInputDialog(jFrame, s);
+                        return;
                     }
                 }
+                JOptionPane.showInputDialog(jFrame, "Codigo no encontrado");
+            }
+        });
+        //todos los workers ->
+        mostrarTrabajadoresRegistradosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = "";
+                for (int i = 0; i < index; i++) {
+                    if (personal[i].getClass().getName().equals(Empleado.getClass().getName())) {
+                        s += ((Empleado) personal[i]).toString() + '\n';
+                    } else {
+                        s += ((Consultor) personal[i]).toString() + '\n';
+                    }
+                }
+                JOptionPane.showMessageDialog(jFrame, s);
+            }
+        });
+        mostrarConsultoresRegistradosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = "";
+                for (int i = 0; i < index; i++) {
+                    if (personal[i].getClass().getName().equals(Consultor.getClass().getName())) {
+                        s += ((Consultor) personal[i]).toString() + '\n';
+                    }
+                }
+                JOptionPane.showMessageDialog(jFrame, s);
+            }
+        });
+        mostrarEmpleadosRegistradosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = "";
+                for (int i = 0; i < index; i++) {
+                    if (personal[i].getClass().getName().equals(Empleado.getClass().getName())) {
+                        s += ((Empleado) personal[i]).toString() + '\n';
+                    }
+                }
+                JOptionPane.showMessageDialog(jFrame, s);
             }
         });
     }

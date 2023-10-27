@@ -48,4 +48,11 @@ public class Empleado extends Trabajador {
                 horasExtras * calcularSueldoHoraExtra());
     }
 
+    @Override
+    public String toString() {
+        return "Codigo: " + this.getCodigo() + "'\n'Nombre: " + this.getNombre() +
+                "'\n'Sueldo basico: " + this.getBasico() + "'\n'Retenciones: " + this.getRetenciones() +
+                "'\n'Días de falta: " + this.getDiasFaltas() + "'\n'Descuentos: " + this.getDescuentos() +
+                                    "'\n'Horas extra: " + this.getHorasExtras() + '\n';
+    }
 }
