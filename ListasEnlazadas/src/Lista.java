@@ -114,4 +114,62 @@ public class Lista {
             return false;
         }
     }
+
+    public String buscarNombrePorCodigo(int codigo) {
+        Nodo ptr = this.inicio;
+        while (ptr != null) {
+            if (ptr.getCodigo() == codigo) {
+                return ptr.getNombre();
+            }
+            ptr = ptr.getSiguiente();
+        }
+        return "Alumno no encontrado";
+    }
+
+    public Integer buscarCodigoPorNombre(String nombreBuscado) {
+        Nodo ptr = this.inicio;
+        while (ptr != null) {
+            if (ptr.getNombre().equals(nombreBuscado)) {
+                return ptr.getCodigo();
+            }
+            ptr = ptr.getSiguiente();
+        }
+        return null;
+    }
+
+    public boolean modificarNombrePorCodigo(int codigo, String nuevoNombre) {
+        Nodo ptr = this.inicio;
+        while (ptr != null) {
+            if (ptr.getCodigo() == codigo) {
+                ptr.setNombre(nuevoNombre);
+                return true;
+            }
+            ptr = ptr.getSiguiente();
+        }
+        return false;
+    }
+
+    public boolean eliminarPorPosicion(int posicion) {
+        int num = longitud();
+        if (posicion >= 1 && posicion <= num) {
+            if (posicion == 1) {
+                this.inicio = inicio.getSiguiente();
+                return true;
+            } else {
+                Nodo ptr = this.inicio;
+                Nodo qtr = ptr;
+                int k = 1;
+
+                while (k < posicion) {
+                    qtr = ptr;
+                    ptr = ptr.getSiguiente();
+                    k++;
+                }
+
+                qtr.setSiguiente(ptr.getSiguiente());
+                return true;
+            }
+        }
+        return false;
+    }
 }
