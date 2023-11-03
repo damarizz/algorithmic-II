@@ -12,7 +12,7 @@ public class Medico extends Seguro{
     }
 
     @Override
-    private void calcularCobertura() {
+    public void calcularCobertura() {
         if (this.edad > 80) {
             this.setCobertura(this.getPrima() * 100);
         } else {
