@@ -22,9 +22,9 @@ public class InstitutoForm extends JFrame {
     private JTextField PosicionTextField;
     private JRadioButton porCódigoRadioButton;
     private JRadioButton porNombreRadioButton;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JButton BUSCARButton;
+    private JTextField BuscarCodigoTextField;
+    private JTextField BuscarNombreTextField;
+    private JButton BuscarCodigoButton;
     private JTextField modificarBuscarTextField;
     private JTextField nuevoNombreTextField;
     private JRadioButton porCódigoRadioButton1;
@@ -33,28 +33,57 @@ public class InstitutoForm extends JFrame {
     private JPanel CodigoPanel;
     private JPanel PosicionPanel;
     private JTextField EliminarCodigoTextField;
-    private JButton EliminarButton;
-    private JTextField textField3;
-    private JButton ELIMINARButton;
+    private JButton EliminarCodigoButton;
+    private JTextField PosicionEliminarTextField;
+    private JButton EliminarPosicionButton;
     private JButton BUSCARModificarButton;
     private JButton MODIFICARButton;
     private JPanel TipoAccionPanel;
     private JPanel BuscarCardPanel;
     private JPanel BuscarCodigoCardPanel;
     private JPanel BuscarNombreCardPanel;
+    private JButton BuscarNombreButton;
     private JFrame jFrame = new JFrame();
+    Lista lista = new Lista();
 
     public InstitutoForm() {
         BUSCARModificarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int code;
                 try {
-                    int code = Integer.parseInt(modificarBuscarTextField.getText());
+                    code = Integer.parseInt(modificarBuscarTextField.getText());
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(jFrame, "Ingrese un codigo valido");
+                    return;
                 }
 
+                if (lista.existe(code)) {
+                    nuevoNombreTextField.setEnabled(true);
+                    nuevoNombreTextField.setEditable(true);
+                }
+            }
+        });
 
+        MODIFICARButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nuevoNombreTextField.isEnabled()) {
+                    String nuevoNombre = nuevoNombreTextField.getText();
+                    int code;
+
+                    try {
+                        code = Integer.parseInt(modificarBuscarTextField.getText());
+                    } catch (Exception exception) {
+                        JOptionPane.showMessageDialog(jFrame, "Ingrese un codigo valido");
+                        return;
+                    }
+
+                    lista.modificarNombrePorCodigo(code, nuevoNombre);
+                    nuevoNombreTextField.setEditable(false);
+                    nuevoNombreTextField.setEnabled(false);
+                    JOptionPane.showInputDialog(jFrame, "Nombre actualizado correctamente");
+                }
             }
         });
         agregarRadioButton.addActionListener(new ActionListener() {
@@ -106,6 +135,27 @@ public class InstitutoForm extends JFrame {
                 ((CardLayout)BuscarCardPanel.getLayout()).show(BuscarCardPanel, "BuscarNombreCard");
             }
         });
+        posiciónRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PosicionTextField.setEnabled(true);
+                PosicionTextField.setEditable(true);
+            }
+        });
+        posiciónRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PosicionTextField.setEnabled(false);
+                PosicionTextField.setEditable(false);
+            }
+        });
+        posiciónRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PosicionTextField.setEnabled(false);
+                PosicionTextField.setEditable(false);
+            }
+        });
         AgregarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -131,6 +181,114 @@ public class InstitutoForm extends JFrame {
                     return;
                 }
 
+                if (alInicioRadioButton.isSelected()) {
+                    lista.addInicio(codigo, nombres);
+                } if (posiciónRadioButton.isSelected()) {
+                    int posicion;
+                    try {
+                        posicion = Integer.parseInt(PosicionTextField.getText());
+                    } catch (Exception exception) {
+                        JOptionPane.showMessageDialog(jFrame, "Posicion invalida");
+                        return;
+                    }
+                    lista.insertNodo(codigo, nombres, posicion);
+                } else {
+                    lista.addFinal(codigo, nombres);
+                }
+                JOptionPane.showMessageDialog(jFrame, "Agregado correctamente");
+            }
+        });
+        EliminarCodigoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int codigo;
+                try {
+                    codigo = Integer.parseInt(EliminarCodigoTextField.getText());
+                }
+                catch (Exception exception) {
+                    JOptionPane.showMessageDialog(jFrame, "Ingrese un valor entero para el código del estudiante.");
+                    return;
+                }
+                if (codigo <= 0) {
+                    JOptionPane.showMessageDialog(jFrame, "Código de estudiante inválido.");
+                    return;
+                }
+                if (lista.deleteNodo(codigo)) {
+                    JOptionPane.showMessageDialog(jFrame, "Estudiante eliminado con éxito.");
+                } else {
+                    JOptionPane.showMessageDialog(jFrame, "No pudo eliminarse al estudiante.");
+                }
+
+            }
+        });
+        EliminarPosicionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int posicion;
+                try {
+                    posicion = Integer.parseInt(PosicionEliminarTextField.getText());
+                }
+                catch (Exception exception) {
+                    JOptionPane.showMessageDialog(jFrame, "Ingrese un valor entero para la posición del estudiante.");
+                    return;
+                }
+                if (posicion <= 0) {
+                    JOptionPane.showMessageDialog(jFrame, "Posición de estudiante inválido.");
+                    return;
+                }
+                if (lista.eliminarPorPosicion(posicion)) {
+                    JOptionPane.showMessageDialog(jFrame, "Estudiante eliminado con éxito.");
+                } else {
+                    JOptionPane.showMessageDialog(jFrame, "No pudo eliminarse al estudiante.");
+                }
+            }
+        });
+        BuscarCodigoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int codigo;
+                try {
+                    codigo = Integer.parseInt(BuscarCodigoTextField.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(jFrame, "Ingrese un valor entero para el código del estudiante.");
+                    return;
+                }
+                if (codigo <= 0) {
+                    JOptionPane.showMessageDialog(jFrame, "Código de estudiante inválido.");
+                    return;
+                }
+
+                String s = null;
+                if (!lista.buscarNombrePorCodigo(codigo).equals("Alumno no encontrado")) {
+                    s = "Nombres del Estudiante: " + lista.buscarNombrePorCodigo(codigo);
+                    JOptionPane.showInputDialog(jFrame, s);
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(jFrame, "No se pudo encontrar el código del estudiante.");
+                }
+            }
+        });
+
+
+        BuscarNombreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombres;
+                try {
+                    nombres = BuscarNombreTextField.getText();
+                }
+                catch (Exception exception) {
+                    JOptionPane.showMessageDialog(jFrame, "Ingrese nombres válidos para el estudiante.");
+                    return;
+                }
+                String s = null;
+                if (lista.buscarCodigoPorNombre(nombres) != null) {
+                    s = "Código del Estudiante: " + lista.buscarCodigoPorNombre(nombres);
+                    JOptionPane.showInputDialog(jFrame, s);
+                    return;
+                } else {
+                    JOptionPane.showMessageDialog(jFrame, "No se pudo encontrar los nombres del estudiante.");
+                }
             }
         });
     }
