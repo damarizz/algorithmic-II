@@ -39,7 +39,7 @@ public class Lista {
     }
 
     public void addInicio(int codigo, String nombre) {
-        if (this.existe(codigo)) {
+        if (!this.existe(codigo)) {
             Nodo nuevo = new Nodo(codigo, nombre);
             nuevo.setSiguiente(this.inicio);
             this.inicio = nuevo;
@@ -47,7 +47,7 @@ public class Lista {
     }
 
     public void addFinal(int codigo, String nombre) {
-        if (this.existe(codigo)) {
+        if (!this.existe(codigo)) {
             Nodo nuevo = new Nodo(codigo, nombre);
             if (this.inicio == null) {
                 this.inicio = nuevo;
@@ -62,9 +62,9 @@ public class Lista {
     }
 
     public boolean insertNodo(int codigo, String nombre, int posicion) {
-        int num = posicion;
-        if (posicion <= posicion) {
-            if (this.existe(codigo)) {
+        int num = longitud();
+        if (posicion <= num) {
+            if (!this.existe(codigo)) {
                 Nodo nuevo = new Nodo(codigo, nombre);
                 Nodo ptr = this.inicio;
                 Nodo qtr = ptr;

@@ -1,3 +1,5 @@
+import jdk.nashorn.internal.scripts.JO;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -60,7 +62,8 @@ public class InstitutoForm extends JFrame {
 
                 if (lista.existe(code)) {
                     nuevoNombreTextField.setEnabled(true);
-                    nuevoNombreTextField.setEditable(true);
+                } else {
+                    JOptionPane.showMessageDialog(jFrame, "Codigo inexistente");
                 }
             }
         });
@@ -80,9 +83,9 @@ public class InstitutoForm extends JFrame {
                     }
 
                     lista.modificarNombrePorCodigo(code, nuevoNombre);
-                    nuevoNombreTextField.setEditable(false);
+                    nuevoNombreTextField.setText("");
                     nuevoNombreTextField.setEnabled(false);
-                    JOptionPane.showInputDialog(jFrame, "Nombre actualizado correctamente");
+                    JOptionPane.showMessageDialog(jFrame, "Nombre actualizado correctamente");
                 }
             }
         });
@@ -180,6 +183,10 @@ public class InstitutoForm extends JFrame {
                     JOptionPane.showMessageDialog(jFrame, "Código de estudiante inválido.");
                     return;
                 }
+                if (lista.existe(codigo)) {
+                    JOptionPane.showMessageDialog(jFrame, "Ya existe un alumno con ese codigo");
+                    return;
+                }
 
                 if (alInicioRadioButton.isSelected()) {
                     lista.addInicio(codigo, nombres);
@@ -189,6 +196,11 @@ public class InstitutoForm extends JFrame {
                         posicion = Integer.parseInt(PosicionTextField.getText());
                     } catch (Exception exception) {
                         JOptionPane.showMessageDialog(jFrame, "Posicion invalida");
+                        return;
+                    }
+
+                    if (lista.longitud() < posicion) {
+                        JOptionPane.showMessageDialog(jFrame, "No se puede ingresar en una posicion inexistente");
                         return;
                     }
                     lista.insertNodo(codigo, nombres, posicion);
@@ -261,15 +273,13 @@ public class InstitutoForm extends JFrame {
                 String s = null;
                 if (!lista.buscarNombrePorCodigo(codigo).equals("Alumno no encontrado")) {
                     s = "Nombres del Estudiante: " + lista.buscarNombrePorCodigo(codigo);
-                    JOptionPane.showInputDialog(jFrame, s);
+                    JOptionPane.showMessageDialog(jFrame, s);
                     return;
                 } else {
                     JOptionPane.showMessageDialog(jFrame, "No se pudo encontrar el código del estudiante.");
                 }
             }
         });
-
-
         BuscarNombreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -284,8 +294,7 @@ public class InstitutoForm extends JFrame {
                 String s = null;
                 if (lista.buscarCodigoPorNombre(nombres) != null) {
                     s = "Código del Estudiante: " + lista.buscarCodigoPorNombre(nombres);
-                    JOptionPane.showInputDialog(jFrame, s);
-                    return;
+                    JOptionPane.showMessageDialog(jFrame, s);
                 } else {
                     JOptionPane.showMessageDialog(jFrame, "No se pudo encontrar los nombres del estudiante.");
                 }
