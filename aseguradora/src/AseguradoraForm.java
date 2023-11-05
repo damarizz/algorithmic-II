@@ -34,6 +34,10 @@ public class AseguradoraForm extends JFrame {
     private JPanel TipoSeguroPanel;
     private JPanel MedicoCardPanel;
     private JPanel ViviendaCardPanel;
+    private JPanel buttonsPanel;
+    private JButton mostrarSegurosMedicosButton;
+    private JButton mostrarTodosLosSegurosButton;
+    private JButton mostrarSegurosDeViviendaButton;
 
     List <Seguro> seguros = new ArrayList<>();
 
@@ -149,12 +153,50 @@ public class AseguradoraForm extends JFrame {
                 } else {
                     String ubicacion = UbicacionTextField.getText();
                     double precio;
+                    float porcentaje;
 
                     try {
                         precio = Double.parseDouble(PrecioTextField.getText());
                     } catch (Exception exception) {
                         JOptionPane.showMessageDialog(jFrame, "Valor invalido");
                         return;
+                    }
+                    if (precio < 0) {
+                        JOptionPane.showMessageDialog(jFrame, "El precio no puede ser menor a 0");
+                    }
+
+                    try {
+                        porcentaje = Float.parseFloat(PrecioTextField.getText());
+                    } catch (Exception exception) {
+                        JOptionPane.showMessageDialog(jFrame, "Valor de porcentaje invalido");
+                        return;
+                    }
+                    if (porcentaje < 0 || porcentaje > 1) {
+                        JOptionPane.showMessageDialog(jFrame, "porcentaje debe ser entre 0 y 1");
+                        return;
+                    }
+
+                    seguros.add(new Vivienda(poliza, nombre, prima, planSeguro, ubicacion, precio, porcentaje));
+                }
+                JOptionPane.showMessageDialog(jFrame, "Agregado correctamente");
+            }
+        });
+        BUSCARButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int poliza;
+                try {
+                    poliza = Integer.parseInt(PolizaTextField.getText());
+                } catch (Exception exception) {
+                    JOptionPane.showMessageDialog(jFrame, "Valor invalido");
+                    return;
+                }
+
+                for (Seguro seguro : seguros) {
+                    if (seguro.getPoliza() == poliza) {
+                        if (seguro instanceof Medico) {
+                            JOptionPane.showMessageDialog(jFrame, "");
+                        }
                     }
                 }
             }

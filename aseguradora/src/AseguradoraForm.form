@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="AseguradoraJFrame" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="502" height="482"/>
+      <xy x="20" y="20" width="502" height="486"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -16,7 +16,7 @@
           <text value="ASEGURADORA &quot;UNICACHI SAC&quot;"/>
         </properties>
       </component>
-      <grid id="328e9" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="328e9" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -24,19 +24,9 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="d70ab" class="javax.swing.JButton" binding="agregarButton" default-binding="true">
-            <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="76" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="Agregar"/>
-            </properties>
-          </component>
           <grid id="8f709" binding="CardBase" layout-manager="CardLayout" hgap="0" vgap="0">
             <constraints>
-              <grid row="0" column="1" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties/>
             <border type="none"/>
@@ -277,14 +267,39 @@
                   </component>
                 </children>
               </grid>
-              <grid id="a808e" binding="MostrarCardPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="a808e" binding="MostrarCardPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <card name="MostrarCard"/>
                 </constraints>
                 <properties/>
                 <border type="none"/>
-                <children/>
+                <children>
+                  <component id="6f96d" class="javax.swing.JButton" binding="mostrarSegurosMedicosButton" default-binding="true">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Mostrar Seguros Medicos"/>
+                    </properties>
+                  </component>
+                  <component id="8d18e" class="javax.swing.JButton" binding="mostrarTodosLosSegurosButton" default-binding="true">
+                    <constraints>
+                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Mostrar todos los seguros"/>
+                    </properties>
+                  </component>
+                  <component id="d82a" class="javax.swing.JButton" binding="mostrarSegurosDeViviendaButton" default-binding="true">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <text value="Mostrar Seguros de Vivienda"/>
+                    </properties>
+                  </component>
+                </children>
               </grid>
               <grid id="b07a" binding="BuscarCardPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
@@ -294,54 +309,94 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="d794b" class="javax.swing.JButton" binding="BUSCARButton" default-binding="true">
+                  <grid id="e5ef5" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="BUSCAR"/>
-                    </properties>
-                  </component>
-                  <component id="86a6c" class="javax.swing.JLabel">
-                    <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                    </constraints>
-                    <properties>
-                      <text value="N° Póliza: "/>
-                    </properties>
-                  </component>
-                  <component id="8a2a8" class="javax.swing.JTextField" binding="PolizaBuscarTextField">
-                    <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                        <preferred-size width="150" height="-1"/>
-                      </grid>
+                      <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
-                  </component>
+                    <border type="none"/>
+                    <children>
+                      <component id="8a2a8" class="javax.swing.JTextField" binding="PolizaBuscarTextField">
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties/>
+                      </component>
+                      <component id="86a6c" class="javax.swing.JLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value="N° Póliza: "/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="efb08" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="d794b" class="javax.swing.JButton" binding="BUSCARButton" default-binding="true">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value="BUSCAR"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
                 </children>
               </grid>
             </children>
           </grid>
-          <component id="b8993" class="javax.swing.JButton" binding="mostrarButton" default-binding="true">
+          <grid id="98946" binding="buttonsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="76" height="30"/>
-              </grid>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties>
-              <text value="Mostrar"/>
-            </properties>
-          </component>
-          <component id="53672" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="76" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="Buscar"/>
-            </properties>
-          </component>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="d70ab" class="javax.swing.JButton" binding="agregarButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="76" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Agregar"/>
+                </properties>
+              </component>
+              <component id="b8993" class="javax.swing.JButton" binding="mostrarButton" default-binding="true">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="76" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Mostrar"/>
+                </properties>
+              </component>
+              <component id="53672" class="javax.swing.JButton" binding="buscarButton" default-binding="true">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="76" height="30"/>
+                  </grid>
+                </constraints>
+                <properties>
+                  <text value="Buscar"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
     </children>

@@ -38,4 +38,17 @@ public class Vivienda extends Seguro {
     public void setPorcentaje(float porcentaje) {
         this.porcentaje = porcentaje;
     }
+
+    @Override
+    public String toString() {
+        return "Seguro Medico" + '\n' +
+                "N° Poliza: " + this.poliza + '\n' +
+                "Nombre: " + this.nombre + '\n' +
+                "Prima: " + this.prima + '\n' +
+                "Plan de seguro: " + this.planSeguro+ '\n' +
+                "Cobertura: " + this.cobertura + '\n' +
+                "Ubicacion: " + this.ubicacion + '\n' +
+                "Precio: " + this.precio + '\n' +
+                "Porcentaje: " + this.porcentaje + '\n' + '\n';
+    }
 }
