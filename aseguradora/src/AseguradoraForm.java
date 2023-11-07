@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class AseguradoraForm extends JFrame {
     private JFrame jFrame = new JFrame();
@@ -21,7 +22,6 @@ public class AseguradoraForm extends JFrame {
     private JTextField SaludTextField;
     private JButton AGREGARButton;
     private JTextField UbicacionTextField;
-    private JButton AGREGARButton1;
     private JPanel AgregarCardPanel;
     private JPanel CardBase;
     private JPanel MostrarCardPanel;
@@ -38,6 +38,8 @@ public class AseguradoraForm extends JFrame {
     private JButton mostrarSegurosMedicosButton;
     private JButton mostrarTodosLosSegurosButton;
     private JButton mostrarSegurosDeViviendaButton;
+    private JComboBox PlanComboBox;
+    private JComboBox SaludComboBox;
 
     List <Seguro> seguros = new ArrayList<>();
 
@@ -78,7 +80,7 @@ public class AseguradoraForm extends JFrame {
                 int poliza;
                 String nombre;
                 double prima;
-                String planSeguro = PlanTextField.getText();
+                String planSeguro = PlanComboBox.getSelectedItem().toString();
                 double cobertura;
 
                 try {
@@ -89,8 +91,15 @@ public class AseguradoraForm extends JFrame {
                     return;
                 }
                 if (poliza <= 0) {
-                    JOptionPane.showMessageDialog(jFrame, "Póliza inválido.");
+                    JOptionPane.showMessageDialog(jFrame, "Póliza inválida.");
                     return;
+                }
+
+                for (Seguro seguro : seguros) {
+                    if (seguro.getPoliza() == poliza) {
+                        JOptionPane.showMessageDialog(jFrame, "Poliza ya registrada, valor invalido");
+                        return;
+                    }
                 }
                 try {
                     nombre = NombresTextField.getText();
@@ -105,7 +114,7 @@ public class AseguradoraForm extends JFrame {
                 }
 
                 try {
-                    prima = Double.parseDouble(PolizaTextField.getText());
+                    prima = Double.parseDouble(PrimaTextField.getText());
                 }
                 catch (Exception exception) {
                     JOptionPane.showMessageDialog(jFrame, "Por favor ingrese un valor entero para el valor de la prima.");
@@ -116,26 +125,14 @@ public class AseguradoraForm extends JFrame {
                     return;
                 }
 
-                if (planSeguro == null || PlanTextField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(jFrame, "Debe ingresar los nombres del cliente.");
-                    return;
-                }
-
-                try {
-                    cobertura = Double.parseDouble(PolizaTextField.getText());
-                }
-                catch (Exception exception) {
-                    JOptionPane.showMessageDialog(jFrame, "Por favor ingrese un valor valido para la cobertura.");
-                    return;
-                }
-                if (cobertura <= 0) {
-                    JOptionPane.showMessageDialog(jFrame, "Cobertura inválido.");
+                if (planSeguro == null ) {
+                    JOptionPane.showMessageDialog(jFrame, "Debe ingresar el plan de Seguro del cliente.");
                     return;
                 }
 
                 if (seguroMédicoRadioButton.isSelected()) {
                     int edad;
-                    String salud = SaludTextField.getText();
+                    String salud = Objects.requireNonNull(SaludComboBox.getSelectedItem()).toString();
 
                     try {
                         edad = Integer.parseInt(EdadTextField.getText());
@@ -149,7 +146,10 @@ public class AseguradoraForm extends JFrame {
                         return;
                     }
 
-                    seguros.add(new Medico(poliza, nombre, prima, planSeguro, edad, salud));
+                    Medico seguro = new Medico(poliza, nombre, prima, planSeguro, edad, salud);
+                    seguro.calcularCobertura();
+
+                    seguros.add(seguro);
                 } else {
                     String ubicacion = UbicacionTextField.getText();
                     double precio;
@@ -166,17 +166,20 @@ public class AseguradoraForm extends JFrame {
                     }
 
                     try {
-                        porcentaje = Float.parseFloat(PrecioTextField.getText());
+                        porcentaje = Float.parseFloat(PorcentajeTextField.getText());
                     } catch (Exception exception) {
                         JOptionPane.showMessageDialog(jFrame, "Valor de porcentaje invalido");
                         return;
                     }
                     if (porcentaje < 0 || porcentaje > 1) {
-                        JOptionPane.showMessageDialog(jFrame, "porcentaje debe ser entre 0 y 1");
+                        JOptionPane.showMessageDialog(jFrame, "Porcentaje debe ser entre 0 y 1");
                         return;
                     }
 
-                    seguros.add(new Vivienda(poliza, nombre, prima, planSeguro, ubicacion, precio, porcentaje));
+                    Vivienda seguro = new Vivienda(poliza, nombre, prima, planSeguro, ubicacion, precio, porcentaje);
+                    seguro.calcularCobertura();
+
+                    seguros.add(seguro);
                 }
                 JOptionPane.showMessageDialog(jFrame, "Agregado correctamente");
             }
@@ -186,7 +189,7 @@ public class AseguradoraForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int poliza;
                 try {
-                    poliza = Integer.parseInt(PolizaTextField.getText());
+                    poliza = Integer.parseInt(PolizaBuscarTextField.getText());
                 } catch (Exception exception) {
                     JOptionPane.showMessageDialog(jFrame, "Valor invalido");
                     return;
@@ -195,10 +198,64 @@ public class AseguradoraForm extends JFrame {
                 for (Seguro seguro : seguros) {
                     if (seguro.getPoliza() == poliza) {
                         if (seguro instanceof Medico) {
-                            JOptionPane.showMessageDialog(jFrame, "");
+                            JOptionPane.showMessageDialog(jFrame, ((Medico) seguro).toString());
+                        } else {
+                            JOptionPane.showMessageDialog(jFrame, ((Vivienda) seguro).toString());
                         }
+                        return;
                     }
                 }
+                JOptionPane.showMessageDialog(jFrame, "N° de Poliza no encontrado");
+            }
+        });
+        mostrarSegurosMedicosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = "";
+                for (Seguro seguro: seguros) {
+                    if (seguro instanceof Medico) {
+                        s += ((Medico) seguro).toString();
+                    }
+                }
+                if (s.isEmpty()) {
+                    JOptionPane.showMessageDialog(jFrame, "No hay seguros Medicos para mostrar");
+                    return;
+                }
+                SegurosWindow.main(s);
+            }
+        });
+        mostrarSegurosDeViviendaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = "";
+                for (Seguro seguro: seguros) {
+                    if (seguro instanceof Vivienda) {
+                        s += ((Vivienda) seguro).toString();
+                    }
+                }
+                if (s.isEmpty()) {
+                    JOptionPane.showMessageDialog(jFrame, "No hay seguros de Vivienda para mostrar");
+                    return;
+                }
+                SegurosWindow.main(s);
+            }
+        });
+        mostrarTodosLosSegurosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String s = "";
+                for (Seguro seguro: seguros) {
+                    if (seguro instanceof Medico) {
+                        s += ((Medico) seguro).toString();
+                    } else {
+                        s += ((Vivienda) seguro).toString();
+                    }
+                }
+                if (s.isEmpty()) {
+                    JOptionPane.showMessageDialog(jFrame, "No hay seguros de ningun tipo para mostrar");
+                    return;
+                }
+                SegurosWindow.main(s);
             }
         });
     }

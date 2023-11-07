@@ -20,18 +20,17 @@ public class Medico extends Seguro{
                 this.setCobertura(this.getPrima() * 200);
             } else {
                 if (edad > 40) {
-                    this.setCobertura(this.getCobertura() * 300);
+                    this.setCobertura(this.getPrima() * 300);
                 } else {
-                    this.setCobertura(this.getCobertura() * 400);
+                    this.setCobertura(this.getPrima() * 400);
                 }
             }
         }
         // ojito
-        if (Objects.equals(salud, "normal")) {
+        if (Objects.equals(salud, "Saludable")) {
             this.setCobertura(getCobertura() * 2);
         } else {
             this.setCobertura(this.getCobertura() / 2);
-
         }
     }
 
