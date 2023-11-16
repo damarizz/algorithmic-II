@@ -1,8 +1,8 @@
 public abstract class Calc {
-    private double acumulador;
+    protected double acumulador;
     protected double operando;
-    private int operadorAnterior;
-    private double visor; //este atributo puede ser eliminado es equivalente al acumulador
+    protected int operadorAnterior;
+    protected double visor; //este atributo puede ser eliminado es equivalente al acumulador
 
     public Calc() {
         this.acumulador = 0;
