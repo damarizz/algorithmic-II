@@ -1,6 +1,6 @@
-public class Calc {
+public abstract class Calc {
     private double acumulador;
-    private double operando;
+    protected double operando;
     private int operadorAnterior;
     private double visor; //este atributo puede ser eliminado es equivalente al acumulador
 
