@@ -24,7 +24,7 @@ public class CineForm extends JFrame {
     private JTextField registrarNombreCineTextField;
     private JTextField registrarDireccionCineTextField;
     private JTextField registrarTelefonoCineTextField;
-    private JButton REGISTRARPeliculaButton;
+    private JButton RegistrarCineButton;
     private JRadioButton registrarPeliculaRadioButton;
     private JPanel RegistroPeliPanel;
     private JPanel RegistroReparto;
@@ -62,7 +62,7 @@ public class CineForm extends JFrame {
     private JComboBox peliOpinionComboBox;
     private JRadioButton registrarFunciónRadioButton;
     private JPanel RegistroFuncionPanel;
-    private JButton REGISTRARButton5;
+    private JButton RegistrarFuncionButton;
     private JComboBox registroFuncionCineComboBox;
     private JComboBox registroFuncionSalaComboBox;
     private JTextField registrarFuncionDiaTextField;
@@ -73,16 +73,18 @@ public class CineForm extends JFrame {
     private JPanel PromocionCardPanel;
     private JPanel siPromoPanel;
     private JPanel noPromoPanel;
-<<<<<<< HEAD
     private JTextField textField29;
     private JTextField textField30;
     private JComboBox clasifComboBox;
-
-=======
     private JTextField descuentoTextField;
     private JTextField descripcionTextField;
     private JButton selectCineFuncionButton;
->>>>>>> mosonrama
+    private JPanel Mostrar;
+    private JButton MOSTRARButton;
+    private JComboBox cineCarteleraComboBox;
+    private JButton OKButton1;
+    private JComboBox salaCarteleraComboBox;
+    private JButton OKButton;
     private List<Cine> cines = new ArrayList<>();
     private List<Pelicula> peliculas = new ArrayList<>();
 
@@ -98,13 +100,13 @@ public class CineForm extends JFrame {
         registrarSalaRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroSalaCard");
                 Vector<String> nombres = new Vector<>();
                 for (Cine cine : cines) {
                     nombres.add(cine.getName());
                 }
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombres);
-                registroFuncionCineComboBox.setModel( model );
+                cineSalaComboBox.setModel( model );
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroSalaCard");
             }
         });
         registrarPeliculaRadioButton.addActionListener(new ActionListener() {
@@ -124,9 +126,9 @@ public class CineForm extends JFrame {
                 registroFuncionCineComboBox.setModel( model );
                 Vector<String> nombresPeliculas = new Vector<>();
                 for (Pelicula peli : peliculas) {
-                    nombres.add(peli.getTituloDistribucion());
+                    nombresPeliculas.add(peli.getTituloDistribucion());
                 }
-                model = new DefaultComboBoxModel<>((Vector) nombres);
+                model = new DefaultComboBoxModel<>((Vector) nombresPeliculas);
                 registroFuncionPeliComboBox.setModel( model );
                 ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroFuncionCard");
             }
@@ -146,13 +148,14 @@ public class CineForm extends JFrame {
         registrarOpiniónRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroOpinionCard");
+
                 Vector<String> nombres = new Vector<>();
                 for (Pelicula pelicula : peliculas) {
                     nombres.add(pelicula.getTituloDistribucion());
                 }
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombres);
                 peliOpinionComboBox.setModel( model );
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroOpinionCard");
 
             }
         });
@@ -197,10 +200,11 @@ public class CineForm extends JFrame {
                 JOptionPane.showMessageDialog(jFrame, "Película agregada correctamente");
             }
         });
-        REGISTRARPeliculaButton.addActionListener(new ActionListener() {
+        RegistrarCineButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registrarCine();
+                JOptionPane.showMessageDialog(jFrame, "Cine agregado correctamente");
             }
         });
         selectCineFuncionButton.addActionListener(new ActionListener() {
@@ -222,6 +226,31 @@ public class CineForm extends JFrame {
                 }
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombres);
                 registroFuncionSalaComboBox.setModel( model );
+            }
+        });
+        RegistrarFuncionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registrarFuncion();
+                JOptionPane.showMessageDialog(jFrame, "Función agregada correctamente");
+            }
+        });
+        mostrarCarteleraRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Vector<String> nombres = new Vector<>();
+                for (Cine cine : cines) {
+                    nombres.add(cine.getName());
+                }
+                DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombres);
+                registroFuncionCineComboBox.setModel( model );
+                Vector<String> nombresPeliculas = new Vector<>();
+                for (Pelicula peli : peliculas) {
+                    nombresPeliculas.add(peli.getTituloDistribucion());
+                }
+                model = new DefaultComboBoxModel<>((Vector) nombresPeliculas);
+                registroFuncionPeliComboBox.setModel( model );
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "mostrarCareleraCard");
             }
         });
     }
@@ -281,6 +310,7 @@ public class CineForm extends JFrame {
         }
         Pelicula pelicula = new Pelicula(id, tituloDistribucion, tituloOriginal, genero, idiomaOriginal, subtitulos, paisOrigen, anoProd,
                 sitioWeb, duracion, clasificacion, fechaEstreno, resumen);
+        peliculas.add(pelicula);
     }
 
     public void registrarReparto() {
@@ -315,6 +345,24 @@ public class CineForm extends JFrame {
         cines.add(cine);
     }
 
+    public void mostrarCartelera () {
+        String nombreCine = cineCarteleraComboBox.getSelectedItem().toString();
+        String nombreSala = salaCarteleraComboBox.getSelectedItem().toString();
+        Sala selectedSala = null;
+        Pelicula pelicula = null;
+
+        for (Cine cine : cines) {
+            if (nombreCine.equals(cine.getName())) {
+                for (Sala sala :cine.getSalas()) {
+                    if (nombreSala.equals(sala.getNombre())) {
+                        selectedSala = sala;
+                    }
+                    break;
+                }
+                break;
+            }
+        }
+    }
     public void registrarFuncion() {
         String nombreCine = registroFuncionCineComboBox.getSelectedItem().toString();
         String nombreSala = registroFuncionSalaComboBox.getSelectedItem().toString();
