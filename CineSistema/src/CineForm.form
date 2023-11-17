@@ -28,7 +28,9 @@
             <constraints>
               <card name="RegistroSalaCard"/>
             </constraints>
-            <properties/>
+            <properties>
+              <enabled value="true"/>
+            </properties>
             <border type="none"/>
             <children>
               <component id="3d27f" class="javax.swing.JLabel">
@@ -898,6 +900,11 @@
     <group name="promocionbuttonGroup">
       <member id="2034d"/>
       <member id="6c607"/>
+    </group>
+    <group name="roleButtonGroup">
+      <member id="19f56"/>
+      <member id="b078e"/>
+      <member id="3ca82"/>
     </group>
   </buttonGroups>
 </form>

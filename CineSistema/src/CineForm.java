@@ -75,40 +75,54 @@ public class CineForm extends JFrame {
     private JTextField textField30;
 
     public CineForm() {
+
+        ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroCineCard");
         registrarCineRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(RegistroCine, "RegistroCineCard");
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroCineCard");
             }
         });
         registrarSalaRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(RegistroSala, "RegistroSalaCard");
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroSalaCard");
             }
         });
         registrarPeliculaRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(RegistroPeliPanel, "RegistroPeliCard");
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroPeliCard");
             }
         });
         registrarFunciónRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(RegistroFuncionPanel, "RegistroFuncionCard");
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroFuncionCard");
             }
         });
         registrarRepartoRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(RegistroReparto, "RegistroRepartoCard");
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroRepartoCard");
             }
         });
         registrarOpiniónRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ((CardLayout)AccionesCardLayout.getLayout()).show(RegistroOpinionPanel, "RegistroOpinionCard");
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroOpinionCard");
+            }
+        });
+        síRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)PromocionCardPanel.getLayout()).show(PromocionCardPanel, "siPromoCard");
+            }
+        });
+        noRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((CardLayout)PromocionCardPanel.getLayout()).show(PromocionCardPanel, "noPromoCard");
             }
         });
     }
