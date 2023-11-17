@@ -4,7 +4,7 @@ public class CineForm {
     private JPanel CinePanel;
     private JRadioButton registrarCineRadioButton;
     private JRadioButton registrarRepartoRadioButton;
-    private JRadioButton buscarPelículaRadioButton;
+    private JRadioButton mostrarCarteleraRadioButton;
     private JPanel AccionesCardLayout;
     private JPanel RegistroCine;
     private JRadioButton registrarSalaRadioButton;
@@ -37,4 +37,11 @@ public class CineForm {
     private JRadioButton SÍRadioButton;
     private JRadioButton NORadioButton;
     private JButton REGISTRARButton3;
+    private JTextField textField19;
+    private JTextField textField20;
+    private JComboBox comboBox2;
+    private JTextField textField21;
+    private JRadioButton actorRadioButton;
+    private JRadioButton directorRadioButton;
+    private JRadioButton actorYDirectorRadioButton;
 }
