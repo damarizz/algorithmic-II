@@ -15,9 +15,9 @@ public class CineForm extends JFrame {
     private JPanel RegistroSala;
     private JComboBox comboBox1;
     private JTextField nombreSalaTextField;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JButton REGISTRARButton;
+    private JTextField numeroSalaTextField;
+    private JTextField butacasTextField;
+    private JButton registrarSalaRButton;
     private JTextField textField4;
     private JTextField textField5;
     private JTextField textField6;
@@ -125,6 +125,41 @@ public class CineForm extends JFrame {
                 ((CardLayout)PromocionCardPanel.getLayout()).show(PromocionCardPanel, "noPromoCard");
             }
         });
+        registrarSalaRButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+    }
+
+    public void registrarSala() {
+        String salaNombre;
+        int salaNumero;
+        int butacas;
+
+        try {
+            salaNombre = nombreSalaTextField.getText();
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(jFrame, "Por favor ingrese un valor válido para el nombre de la sala.");
+            return;
+        }
+        if (salaNombre == null || salaNombre.isEmpty()) {
+            JOptionPane.showMessageDialog(jFrame, "Debe ingresar una nombre de sala.");
+            return;
+        }
+
+        try {
+            salaNumero = Integer.parseInt(numeroSalaTextField.getText());
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(jFrame, "Por favor ingrese un valor entero válido para el número de sala.");
+            return;
+        }
+        if (salaNumero <= 0) {
+            JOptionPane.showMessageDialog(jFrame, "Debe haber espacio para al menos un pasajero.");
+            return;
+        }
+
     }
 
     public static void main(String[] args) {

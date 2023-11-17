@@ -71,7 +71,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="bea6b" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+              <component id="bea6b" class="javax.swing.JTextField" binding="numeroSalaTextField">
                 <constraints>
                   <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -87,7 +87,7 @@
                   <text value="N° Butacas:"/>
                 </properties>
               </component>
-              <component id="b5f1a" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+              <component id="b5f1a" class="javax.swing.JTextField" binding="butacasTextField">
                 <constraints>
                   <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                     <preferred-size width="150" height="-1"/>
@@ -95,7 +95,7 @@
                 </constraints>
                 <properties/>
               </component>
-              <component id="a7cf1" class="javax.swing.JButton" binding="REGISTRARButton" default-binding="true">
+              <component id="a7cf1" class="javax.swing.JButton" binding="registrarSalaRButton">
                 <constraints>
                   <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
