@@ -25,4 +25,11 @@ public class Funcion {
     public String getHoraComienzo() {
         return horaComienzo;
     }
+
+    @Override
+    public String toString() {
+        return "Dia: " + this.getDiaSemana() + '\n' +
+                "Hora de inicio: " + this.getHoraComienzo() + '\n' +
+                "Pelicula: " + pelicula.getTituloDistribucion() + '\n';
+    }
 }

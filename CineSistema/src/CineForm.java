@@ -82,9 +82,8 @@ public class CineForm extends JFrame {
     private JPanel Mostrar;
     private JButton MOSTRARButton;
     private JComboBox cineCarteleraComboBox;
-    private JButton OKButton1;
     private JComboBox salaCarteleraComboBox;
-    private JButton OKButton;
+    private JButton OKSelectCineMostrarCarteleraButton;
     private List<Cine> cines = new ArrayList<>();
     private List<Pelicula> peliculas = new ArrayList<>();
 
@@ -243,14 +242,44 @@ public class CineForm extends JFrame {
                     nombres.add(cine.getName());
                 }
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombres);
-                registroFuncionCineComboBox.setModel( model );
+                cineCarteleraComboBox.setModel( model );
+                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "mostrarCareleraCard");
+            }
+        });
+        OKSelectCineMostrarCarteleraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
                 Vector<String> nombresPeliculas = new Vector<>();
                 for (Pelicula peli : peliculas) {
                     nombresPeliculas.add(peli.getTituloDistribucion());
                 }
-                model = new DefaultComboBoxModel<>((Vector) nombresPeliculas);
-                registroFuncionPeliComboBox.setModel( model );
-                ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "mostrarCareleraCard");
+                DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombresPeliculas);
+                cineCarteleraComboBox.setModel( model );
+                cineCarteleraComboBox.setEnabled(false);
+            }
+        });
+        MOSTRARButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombreCine = cineCarteleraComboBox.getSelectedItem().toString();
+                String nombreSala = salaCarteleraComboBox.getSelectedItem().toString();
+                List<Funcion> funciones = new ArrayList<>();
+                for (Cine cine : cines) {
+                    if (cine.getName().equals(nombreCine)) {
+                        for (Sala sala : cine.getSalas()) {
+                            if (sala.getNombre().equals(nombreSala)) {
+                                funciones = sala.getFunciones();
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                String s = "";
+                for (Funcion funcion : funciones) {
+                    s += funcion.toString();
+                }
+                JOptionPane.showMessageDialog(jFrame, s);
             }
         });
     }

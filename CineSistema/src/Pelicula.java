@@ -93,4 +93,47 @@ public class Pelicula {
     public List<Opinion> getOpinions() {
         return opinions;
     }
+    @Override
+    public String toString() {
+        String s = "Pelicula: " + this.tituloDistribucion + '\n' +
+                "Titulo original: " + this.tituloOriginal + '\n' +
+                "Genero: " + this.genero +'\n' +
+                "Idioma original: " + this.idiomaOriginal + '\n';
+
+        if (subtitulos) {
+            s += "Subititulos: Si" + '\n';
+        } else {
+            s += "Subititulos: No" + '\n';
+        }
+        s += "Pais de origen: " + this.pais + '\n' +
+                "Duracion: " + this.duracion+ '\n' +
+                "Calificacion: " + this.calificacion + '\n' +
+                "Fecha estreno: " + this.fechaEstreno + '\n' +
+                "Resumen: " + this.resumen;
+        return s;
+    }
+
+    public String getListaReparto() {
+        String s = "";
+        for (Reparto reparto : repartos) {
+            s += "Nombre: " + reparto.getNombre() + '\n' +
+                    "Rol: " + reparto.getRol() + '\n' +
+                    "Nacionalidad: " + reparto.getNacionalidad() + '\n' +
+                    "N° de peliculas: " + reparto.getCantidadDePeliculas() + '\n' + '\n';
+        }
+        return s;
+    };
+
+    public String getListaOpiniones() {
+        String s = "";
+        for (Opinion opinion : opinions) {
+            s += "Id: " + opinion.getId() + '\n' +
+                    "Nombre: " + opinion.getNombrePersona() + '\n' +
+                    "Edad: " + opinion.getEdad() + '\n' +
+                    "Fecha: " + opinion.getFecha() + '\n' +
+                    "Calificacion: " + opinion.getCalificacion() + '\n' +
+                    "Comentario: " + opinion.getComentario() + '\n' + '\n';
+        }
+        return s;
+    }
 }

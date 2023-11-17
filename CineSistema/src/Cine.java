@@ -33,4 +33,6 @@ public class Cine {
     public List<Promocion> getPromociones() {
         return promociones;
     }
+
+
 }
