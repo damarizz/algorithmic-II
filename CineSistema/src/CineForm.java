@@ -254,7 +254,7 @@ public class CineForm extends JFrame {
                     nombresPeliculas.add(peli.getTituloDistribucion());
                 }
                 DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombresPeliculas);
-                cineCarteleraComboBox.setModel( model );
+                salaCarteleraComboBox.setModel( model );
                 cineCarteleraComboBox.setEnabled(false);
             }
         });
