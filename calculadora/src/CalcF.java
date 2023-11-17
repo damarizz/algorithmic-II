@@ -25,7 +25,7 @@ public class CalcF extends Calc {
                     }
                     this.acumulador = potencia;
                 if (signo == 4) {
-                    this.operadorAnterior = -1;
+                    this.operadorAnterior = 0;
                     this.operando = this.acumulador;
                 } else {
                     this.operadorAnterior = signo;
