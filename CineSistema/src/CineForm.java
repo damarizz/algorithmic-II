@@ -14,7 +14,7 @@ public class CineForm extends JFrame {
     private JRadioButton registrarSalaRadioButton;
     private JPanel RegistroSala;
     private JComboBox comboBox1;
-    private JTextField textField1;
+    private JTextField nombreSalaTextField;
     private JTextField textField2;
     private JTextField textField3;
     private JButton REGISTRARButton;
