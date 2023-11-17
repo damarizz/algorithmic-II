@@ -21,10 +21,10 @@ public class CineForm extends JFrame {
     private JTextField numeroSalaTextField;
     private JTextField butacasTextField;
     private JButton registrarSalaRButton;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JButton REGISTRARButton1;
+    private JTextField registrarNombreCineTextField;
+    private JTextField registrarDireccionCineTextField;
+    private JTextField registrarTelefonoCineTextField;
+    private JButton REGISTRARPeliculaButton;
     private JRadioButton registrarPeliculaRadioButton;
     private JPanel RegistroPeliPanel;
     private JPanel RegistroReparto;
@@ -63,20 +63,26 @@ public class CineForm extends JFrame {
     private JRadioButton registrarFunciónRadioButton;
     private JPanel RegistroFuncionPanel;
     private JButton REGISTRARButton5;
-    private JComboBox comboBox5;
-    private JComboBox comboBox6;
-    private JTextField textField27;
-    private JComboBox comboBox7;
-    private JTextField textField28;
+    private JComboBox registroFuncionCineComboBox;
+    private JComboBox registroFuncionSalaComboBox;
+    private JTextField registrarFuncionDiaTextField;
+    private JComboBox registroFuncionPeliComboBox;
+    private JTextField registroFuncionHoraTextField;
     private JRadioButton síRadioButton;
     private JRadioButton noRadioButton;
     private JPanel PromocionCardPanel;
     private JPanel siPromoPanel;
     private JPanel noPromoPanel;
+<<<<<<< HEAD
     private JTextField textField29;
     private JTextField textField30;
     private JComboBox clasifComboBox;
 
+=======
+    private JTextField descuentoTextField;
+    private JTextField descripcionTextField;
+    private JButton selectCineFuncionButton;
+>>>>>>> mosonrama
     private List<Cine> cines = new ArrayList<>();
     private List<Pelicula> peliculas = new ArrayList<>();
 
@@ -110,6 +116,18 @@ public class CineForm extends JFrame {
         registrarFunciónRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Vector<String> nombres = new Vector<>();
+                for (Cine cine : cines) {
+                    nombres.add(cine.getName());
+                }
+                DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombres);
+                registroFuncionCineComboBox.setModel( model );
+                Vector<String> nombresPeliculas = new Vector<>();
+                for (Pelicula peli : peliculas) {
+                    nombres.add(peli.getTituloDistribucion());
+                }
+                model = new DefaultComboBoxModel<>((Vector) nombres);
+                registroFuncionPeliComboBox.setModel( model );
                 ((CardLayout)AccionesCardLayout.getLayout()).show(AccionesCardLayout, "RegistroFuncionCard");
             }
         });
@@ -177,6 +195,33 @@ public class CineForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 registrarPelicula();
                 JOptionPane.showMessageDialog(jFrame, "Película agregada correctamente");
+            }
+        });
+        REGISTRARPeliculaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                registrarCine();
+            }
+        });
+        selectCineFuncionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombreCine = registroFuncionCineComboBox.getSelectedItem().toString();
+                registroFuncionCineComboBox.setEnabled(false);
+                Vector<String> nombres = new Vector<>();
+                Cine selectedCine = null;
+                for (Cine cine : cines) {
+                    if (cine.getName().equals(nombreCine)) {
+                        selectedCine = cine;
+                        break;
+                    }
+                }
+
+                for (Sala sala : selectedCine.getSalas()) {
+                    nombres.add(sala.getNombre());
+                }
+                DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>((Vector) nombres);
+                registroFuncionSalaComboBox.setModel( model );
             }
         });
     }
@@ -261,6 +306,53 @@ public class CineForm extends JFrame {
                 break;
             }
         }
+
+    }
+
+    public void registrarCine() {
+        Cine cine = new Cine(registrarNombreCineTextField.getText(), registrarDireccionCineTextField.getText(), registrarTelefonoCineTextField.getText());
+
+        cines.add(cine);
+    }
+
+    public void registrarFuncion() {
+        String nombreCine = registroFuncionCineComboBox.getSelectedItem().toString();
+        String nombreSala = registroFuncionSalaComboBox.getSelectedItem().toString();
+        String nombrePeli = registroFuncionPeliComboBox.getSelectedItem().toString();
+        String dia = registrarFuncionDiaTextField.getText();
+        String hora = registroFuncionHoraTextField.getText();
+
+        Sala selectedSala = null;
+        Pelicula pelicula = null;
+
+        for (Cine cine : cines) {
+            if (nombreCine.equals(cine.getName())) {
+                for (Sala sala :cine.getSalas()) {
+                    if (nombreSala.equals(sala.getNombre())) {
+                        selectedSala = sala;
+                    }
+                    break;
+                }
+                break;
+            }
+        }
+
+        for (Pelicula peli : peliculas) {
+            if (nombrePeli.equals(peli.getTituloDistribucion())) {
+                pelicula = peli;
+                break;
+            }
+        }
+
+        if (síRadioButton.isSelected()) {
+            String descuento = descuentoTextField.getText();
+            String descripcion = descripcionTextField.getText();
+
+            selectedSala.getFunciones().add(new Funcion(dia, hora, pelicula, descuento, descripcion));
+            return;
+        }
+
+        selectedSala.getFunciones().add(new Funcion(dia, hora, pelicula));
     }
 
     public static void main(String[] args) {
