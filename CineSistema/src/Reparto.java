@@ -1,5 +1,5 @@
-public class Staff {
-    private String tipo;
+public class Reparto {
+    private String rol;
 
     private String nombre;
 
@@ -7,15 +7,15 @@ public class Staff {
 
     private int cantidadDePeliculas;
 
-    public Staff(String tipo, String nombre, String nacionalidad, int cantidadDePeliculas) {
-        this.tipo = tipo;
+    public Reparto(String rol, String nombre, String nacionalidad, int cantidadDePeliculas) {
+        this.rol = rol;
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
         this.cantidadDePeliculas = cantidadDePeliculas;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getRol() {
+        return rol;
     }
 
     public String getNombre() {

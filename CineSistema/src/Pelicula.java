@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Pelicula {
@@ -14,11 +13,12 @@ public class Pelicula {
     protected String sitioWeb;
     protected String duracion;
     protected String calificacion;
-    protected Date fechaEstreno;
+    protected String fechaEstreno;
     protected String resumen;
-    protected List<Staff> staff = new ArrayList<>();
+    protected List<Reparto> repartos = new ArrayList<>();
+    protected List<Opinion> opinions = new ArrayList<>();
 
-    public Pelicula(int id, String tituloDistribucion, String tituloOriginal, String genero, String idiomaOriginal, boolean subtitulos, String pais, int añoProduccion, String sitioWeb, String duracion, String calificacion, Date fechaEstreno, String resumen) {
+    public Pelicula(int id, String tituloDistribucion, String tituloOriginal, String genero, String idiomaOriginal, boolean subtitulos, String pais, int añoProduccion, String sitioWeb, String duracion, String calificacion, String fechaEstreno, String resumen) {
         this.id = id;
         this.tituloDistribucion = tituloDistribucion;
         this.tituloOriginal = tituloOriginal;
@@ -78,11 +78,19 @@ public class Pelicula {
         return calificacion;
     }
 
-    public Date getFechaEstreno() {
+    public String getFechaEstreno() {
         return fechaEstreno;
     }
 
     public String getResumen() {
         return resumen;
+    }
+
+    public List<Reparto> getRepartos() {
+        return repartos;
+    }
+
+    public List<Opinion> getOpinions() {
+        return opinions;
     }
 }
